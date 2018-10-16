@@ -1,0 +1,94 @@
+{
+  "name": "scytale",
+  "version": "1.0.0",
+  "description": "A simple and secure chat app",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "electron-builder"
+  },
+  "repository": "https://github.com/cpapazaf/scytale",
+  "build": {
+    "appId": "com.scytaleapp.scytale-desktop-app",
+    "asar": true,
+    "files": [
+      "**/*",
+      "!docs${/*}"
+    ],
+    "copyright": "©2018 C.P.",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "linux": {
+      "category": "Chat;GNOME;GTK;Network;InstantMessaging",
+      "packageCategory": "GNOME;GTK;Network;InstantMessaging",
+      "description": "Scytale Desktop Client for Linux",
+      "target": [
+        "deb",
+        "zip",
+        "AppImage",
+        "snap"
+      ],
+      "maintainer": "C.P.",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "deb": {
+      "synopsis": "Scytale Desktop App"
+    },
+    "snap": {
+      "synopsis": "Scytale Desktop App"
+    },
+    "dmg": {
+      "background": "resources/build/appdmg.png",
+      "icon": "resources/build/icon.icns",
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 500
+      }
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis-web",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "resources/build/icon.ico",
+      "publisherName": "C.P."
+    },
+    "nsis": {
+      "perMachine": true,
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "keywords": [
+    "Chat",
+    "Secure"
+  ],
+  "author": "C.P.",
+  "devDependencies": {
+    "electron": "^2.0.0",
+    "electron-builder": "^20.28.4"
+  },
+  "dependencies": {}
+}

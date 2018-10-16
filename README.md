@@ -1,2 +1,10 @@
-# scytale
-A secure chatting app built on electron, socket.io and heroku
+# Scytale desktop clients
+
+## To Use
+
+```bash
+# Install dependencies
+npm install
+# Run the app
+npm start
+```
