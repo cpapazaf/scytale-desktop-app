@@ -6,7 +6,9 @@
   "scripts": {
     "start": "electron .",
     "postinstall": "electron-builder install-app-deps",
-    "dist": "electron-builder"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "mas": "electron-builder --mac mas"
   },
   "repository": "https://github.com/cpapazaf/scytale",
   "build": {
