@@ -23,3 +23,11 @@ cache:
 
 script:
   - npm ci
+  - npm run dist
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  skip_cleanup: true
+  on:
+    tags: true
