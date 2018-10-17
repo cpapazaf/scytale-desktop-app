@@ -1,5 +1,3 @@
-sudo: required
-dist: trusty
 os:
 - osx
 - linux
@@ -22,6 +20,7 @@ script:
 deploy:
   provider: releases
   github-token: $GH_TOKEN
+  api_key: $GH_TOKEN
   skip_cleanup: true
   on:
     tags: true
