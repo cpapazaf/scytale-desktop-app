@@ -21,8 +21,7 @@ script:
 - npm run dist
 deploy:
   provider: releases
-  api_key:
-    secure: h0P40EdRs1bHwtMqXxirxVzGQfANfBUI0D85bNjL2dLpEWRkTgHxmxB2Agjpw+H3rQxgXWfeU0gkBC0iD2H/uWLdl9vJ328rBXYC2wijIh10L2xdrOUAYA7/6quenMxOX7c1fxB0ObEBCjYh9gb89ZfNrVo7ItW+YO6ctC2d9O5avBI8gJ4z8VL9+53UWZyHmOJ3nyIwPDPrFusp7GXAJvPQPunVTsFdUR25zTi3RP+YSreoVAfkf7DDTdL81G2S+4Mh3oNNgxGxFad0JuDg9nz7rjCkWNJ4cwFiVQoyOARZ6yyYoV5N0/1rSPdrq7Wa77abNd/iGpB1Af9VsHjD3XK77qLhRsiRrXPceLzMx/IZHjH3YtOmrPRk4/xt8z8t4IMZ+c3j1bxL6c1N+8uozGsjkBWoKCykIkW3QtEypiM+yBVqeMNv3mtsXnNBfUInSor3RePv4IFRb7V8tJhqw0xnIzW1hT6KxQFNmu79SgaaGu4KmWIAjkRLdrBd0fYFlQN1gw+l5ykVYkTD6PG52VHkfTnVl8IaHmv22OqN1tnMHBDoTnYb6PR3cEqRBq1sywhpxIqgT+ias81pm1P51BiEh7gzHBRXokPoH+8UfhOkz4xrOHG35u+yKSf4cY4T8Ib8NtHroJSdA5VIKdIJePwGLVFsJHbJZdIMtKtJczo=
+  github-token: $GH_TOKEN
   skip_cleanup: true
   on:
     tags: true
