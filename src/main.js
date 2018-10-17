@@ -19,7 +19,6 @@ function createWindow () {
 
   // include a menu
   require('./menu/mainmenu')
-  require('./tray/tray')
   const {app} =require('./app')
   app(mainWindow)
 }
