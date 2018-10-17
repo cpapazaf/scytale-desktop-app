@@ -1,10 +1,8 @@
 sudo: required
 dist: trusty
-
 os:
 - osx
 - linux
-
 addons:
   apt:
     packages:
@@ -12,23 +10,19 @@ addons:
     - libxext-dev
     - libxtst-dev
     - libxkbfile-dev
-
 language: node_js
 node_js:
 - '8'
-
 cache:
   directories:
   - node_modules
-
 script:
-  - npm ci
-  - npm run dist
-
+- npm ci
+- npm run dist
 deploy:
   provider: releases
   api_key:
-    secure: "Xe0Gct0aM/0FmPfLp1vPEVlhNfY0bHn8a9+7u4TkPakVt2rWtR0OMXrlp6a9vqYemzuO82/B/0Kmof3Z1ULPQ6y8376ZebRCYoZJLIaExhDGA3cPKn34yNSgwKfxFu2OzH1VAmQF+2N6Eeb4WcrDpvV1HkqJsZRSwe2UrPCKvDrxbuoXoGhjT141mazFBj9rW62xkpskIq4sDL4Jjd3nI1c8uLV9L2JEfsXYaKq6ibo0yoW5jHCcyky7PVfBkprmT5lpAukXLzsaMTMBDja7ti8lxzOiT/VyuZ9Z1QcFyyqqAIy6Jfco41H3tcby0kiSG8ytrx2VAysLRH39QIQqTQeLuIATslGN3dRRu7k9mMOp1RseIHzwGRZqIPwGzXw9LDI9tRl2f+iRsOf8mxCjB7tel8zinRdzNWBrK9pXhs58k7FRCs66SBZEATQCGn67S6KPy+tQErZ6xyU7lyWOCTy04W7uJtiGED3yYHYyvFtmD9njRhfzya0/7zrBXCKMIYhLClG740etBj+JjW4/4kZ+F3MTyXvDAIWmFA9vaPRcmz1p2OTS4ATwOLs7gEElKKNxL2YjMf5Sb0M5tvP3FbXpOZhb8mun8FRDY4tAgR3Ozi2fyzRYKHs3pJo2YrnJ3AFjD2ur5w3n3iIEpJ6/Juvp7giCVWL0sgq+1hie6C4=" 
+    secure: dcWQ8N/vAHTQUe3VoOvcT8BW1I5V0ToybD1R+B6J+vAY4Ju8vthjpoex92oYtCKKWenzD37ZaZIb3s4tU3HJ3ILzVWbGXdCqFkjfyNwtmAHy2c7tHhKeF9+N444wiEme94veNMolus++N5/JtyuT3Qz53mw7DJd9U2bk2bWzZBSh3Hhp6r5jtSyEoPEag6NgciXCrbjxh5hlU4p0iRd85UplHy6f3cwUtP+fUAgVJGklQoIwv63djEfDaPzbgtxVm0XtFJcf0Elc6V+RE7uEn+QEVrRm2gXOLFJ8/thP6AB4tqZrFBIMO2HIqs+pWrs9P8NO6+cljcqdj4a6aMBPIYoZwl68RX8KudAp/PxmQM/lBZ7jimUhNkPNr6y0vAvZfHr44dp5ME4g64DUQIipUItEeB+gqMVtPv1QbIBf2jP9x2PQ/fFR/U3z5TSdeYgZ9QO1eqWRR5mZI8iifko2bCzFx9Jo7Hh87ZZ0yWEoCQzJ/f7DaLCw1ivwzndwsh2aZQ3tk88nzcA/N5GddZD8O2+Qy5IuH7PBXAQHJUalhD7B7YrHmqb5A1Irnee/8xPCrk8OTh1S46uDaSxS2EChMkv2OIWLAP/l/2T4iQl/5hRNT7zlFsBxHefGzXIm+OC5obPzgpMmxKU+zGlc6cvtSIEZcK7fe4hxd+ekml0Yqrk=
   skip_cleanup: true
   on:
     tags: true
