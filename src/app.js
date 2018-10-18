@@ -1,14 +1,13 @@
-const ipc = require('electron').ipcMain
-const path = require('path')
-const fs = require('fs')
+import React from 'react';
 
-const app = (mainWindow) => {
-    ipc.on('app-get-test', function(event, arg) {
-        console.log('get Test', arg)
-        mainWindow.webContents.send('targetPriceVal', arg)
-    })
-}
+export default class App extends React.Component {
+    render() {
+        return (
+            <div className={'hello'}>
+                <h2>Scytale</h2>
+                <h4>Test</h4>
+            </div>
 
-module.exports = {
-    app:app
+        );
+    }
 }

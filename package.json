@@ -2,21 +2,22 @@
   "name": "scytale",
   "version": "1.0.8",
   "description": "A simple and secure chat app",
-  "main": "src/main.js",
+  "main": "app/main.js",
   "scripts": {
-    "start": "electron .",
     "postinstall": "electron-builder install-app-deps",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "mas": "electron-builder --mac mas"
+    "build": "gulp build",
+    "start": "gulp start",
+    "test": "gulp test",
+    "dist": "gulp release"
   },
   "repository": "https://github.com/cpapazaf/scytale",
   "build": {
     "appId": "com.scytaleapp.scytale-desktop-app",
     "asar": true,
     "files": [
-      "**/*",
-      "!docs${/*}"
+      "app/**/*",
+      "node_modules/**/*",
+      "package.json"
     ],
     "copyright": "©2018 C.P.",
     "mac": {
@@ -43,8 +44,8 @@
       "synopsis": "Scytale Desktop App"
     },
     "dmg": {
-      "background": "resources/build/appdmg.png",
-      "icon": "resources/build/icon.icns",
+      "background": "build/appdmg.png",
+      "icon": "build/icon.icns",
       "iconSize": 100,
       "contents": [
         {
@@ -74,7 +75,7 @@
           ]
         }
       ],
-      "icon": "resources/build/icon.ico",
+      "icon": "build/icon.ico",
       "publisherName": "C.P."
     },
     "nsis": {
@@ -90,7 +91,24 @@
   "author": "C.P.",
   "devDependencies": {
     "electron": "^2.0.0",
-    "electron-builder": "^20.28.4"
+    "electron-builder": "^20.28.4",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "electron-react-devtools": "^0.5.3",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-css": "^0.1.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "jest": "^22.4.2",
+    "react-test-renderer": "^16.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "electron-is-dev": "^0.3.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  }
 }
