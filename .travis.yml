@@ -1,7 +1,6 @@
 os:
 - osx
 - linux
-- windows
 addons:
   apt:
     packages:
