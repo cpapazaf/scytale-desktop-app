@@ -11,6 +11,10 @@
     "dist": "gulp release"
   },
   "repository": "https://github.com/cpapazaf/scytale",
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
+  },
   "build": {
     "appId": "com.scytaleapp.scytale-desktop-app",
     "asar": true,
