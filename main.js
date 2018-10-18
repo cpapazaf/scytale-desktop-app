@@ -1,7 +1,7 @@
-import electron from 'electron';
-import path from 'path';
-import url from 'url';
-import isDevelopment from 'electron-is-dev';
+const electron = require('electron');
+const path = require('path');
+const url = require( 'url');
+const isDevelopment = require('electron-is-dev');
 
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
