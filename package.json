@@ -1,6 +1,6 @@
 {
   "name": "scytale",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A simple and secure chat app",
   "main": "app/main.js",
   "scripts": {
