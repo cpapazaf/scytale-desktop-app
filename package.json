@@ -2,14 +2,16 @@
   "name": "scytale",
   "version": "1.0.9",
   "description": "A simple and secure chat app",
-  "main": "app/main.js",
+  "main": "public/electron.js",
+  "homepage": "./",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
-    "dev": "gulp dev",
-    "build": "gulp build",
-    "start": "gulp start",
-    "test": "gulp test",
-    "dist": "gulp release"
+    "electron": "electron .",
+    "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-dist": "build -c.extraMetadata.main=build/electron.js",
+    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
   },
   "repository": "https://github.com/cpapazaf/scytale",
   "jest": {
@@ -20,10 +22,13 @@
     "appId": "com.scytaleapp.scytale-desktop-app",
     "asar": true,
     "files": [
-      "app/**/*",
+      "build/**/*",
       "node_modules/**/*",
       "package.json"
     ],
+    "directories": {
+      "buildResources": "assets"
+    },
     "copyright": "©2018 C.P.",
     "mac": {
       "category": "public.app-category.productivity",
@@ -49,8 +54,8 @@
       "synopsis": "Scytale Desktop App"
     },
     "dmg": {
-      "background": "build/appdmg.png",
-      "icon": "build/icon.icns",
+      "background": "assets/appdmg.png",
+      "icon": "assets/icon.icns",
       "iconSize": 100,
       "contents": [
         {
@@ -73,14 +78,14 @@
     "win": {
       "target": [
         {
-          "target": "nsis-web",
+          "target": "portable",
           "arch": [
             "x64",
             "ia32"
           ]
         }
       ],
-      "icon": "build/icon.ico",
+      "icon": "assets/icon.ico",
       "publisherName": "C.P."
     },
     "nsis": {
@@ -95,24 +100,23 @@
   ],
   "author": "C.P.",
   "devDependencies": {
-    "@babel/core": "^7.1.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "electron-builder": "^20.28.4",
-    "electron-connect": "^0.6.3",
-    "electron-debug": "2.0.0",
+    "concurrently": "^4.0.1",
     "electron": "^3.0.4",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^8.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-css": "^0.1.0",
-    "gulp-sourcemaps": "^2.6.4",
-    "jest": "^23.6.0",
-    "react-test-renderer": "^16.2.0"
+    "electron-builder": "^20.28.4",
+    "electron-debug": "2.0.0",
+    "react-scripts": "^2.0.5",
+    "wait-on": "^3.1.0"
   },
   "dependencies": {
     "electron-is-dev": "^1.0.1",
     "react": "^16.2.0",
+    "react-desktop": "^0.3.5",
     "react-dom": "^16.2.0"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

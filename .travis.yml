@@ -16,8 +16,8 @@ cache:
   - node_modules
 script:
 - npm ci
-- npm run test
-- npm run dist
+- npm run build
+- npm run electron-dist
 deploy:
   provider: releases
   github-token: $GH_TOKEN
