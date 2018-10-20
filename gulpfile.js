@@ -59,7 +59,7 @@ gulp.task('reload:renderer', done => {
   done();
 });
 
-gulp.task('dev', () => {
+gulp.task('dev', ['copy', 'build'], () => {
   //Start browser process
   electron.start();
   // Restart browser process
