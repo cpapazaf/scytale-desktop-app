@@ -5,15 +5,19 @@ const userListStyle = {
   backgroundColor: 'DarkKhaki',
 }
 
-const UserList = ({ users }) => (
-  <div style={userListStyle}>
-    <ul>
-      {users.map(user => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  </div>
-)
+class UserList extends React.Component {
+  render() {
+    return (
+      <div style={userListStyle}>
+        <ul>
+          {this.props.users.map(user => (
+            <li key={user.id}>{user.name}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+}
 
 UserList.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape({

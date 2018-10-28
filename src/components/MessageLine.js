@@ -8,16 +8,18 @@ const divStyle = {
   wordWrap: "break-word"
 }
 
-const MessageLine = ({ message, author, timestamp }) => {
-  const messageTimestamp = new Date(timestamp)
-  const messageTime = messageTimestamp.getHours() + ':' + messageTimestamp.getMinutes()
-  return (
-      <div>
-      <b>{author}</b> - {messageTime}
-      <br/>
-      <div style={divStyle}>{message}</div>
-      </div>
-  )
+class MessageLine extends React.Component {
+  render() {
+    const messageTimestamp = new Date(this.props.timestamp)
+    const messageTime = messageTimestamp.getHours() + ':' + messageTimestamp.getMinutes()
+    return (
+        <div>
+        <b>{this.props.author}</b> - {messageTime}
+        <br/>
+        <div style={divStyle}>{this.props.message}</div>
+        </div>
+    )
+  }
 }
 
 MessageLine.propTypes = {

@@ -17,32 +17,37 @@ const messageInputStyle = {
   bottom: "10px"
 }
 
-const MessageInput = (props) => {
-  let input
+class MessageInput extends React.Component {
+  constructor(props) {
+    super(props)
+    this.input = null
+  }
 
-  return (
-    <textarea
-      tabIndex='0'
-      raws='1'
-      aria-label="Enter a message and press enter"
-      style={messageInputStyle}
-      onKeyPress={(e) => {
-        // check if pressed enter and the text is not empty by removing trailing new lines
-        if (e.key === 'Enter' && input.value.trim().replace(/^\s+|\s+$/g, '') !== '') {
-          props.dispatch(input.value, 'Me')
-          input.value = ''
-        }
-      }}
-      ref={(node) => {
-        input = node
-      }}
-      autoFocus
-    ></textarea>
-  )
+  render() {
+    return (
+      <textarea
+        tabIndex='0'
+        raws='1'
+        aria-label="Enter a message and press enter"
+        style={messageInputStyle}
+        onKeyPress={(e) => {
+          // check if pressed enter and the text is not empty by removing trailing new lines
+          if (e.key === 'Enter' && this.input && this.input.value.trim().replace(/^\s+|\s+$/g, '') !== '') {
+            this.props.updateMessage(this.input.value, 'Me')
+            this.input.value = ''
+          }
+        }}
+        ref={(node) => {
+          this.input = node
+        }}
+        autoFocus
+      ></textarea>
+    )
+  }
 }
 
 MessageInput.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  updateMessage: PropTypes.func.isRequired
 }
 
 export default MessageInput
