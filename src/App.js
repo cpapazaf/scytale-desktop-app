@@ -1,13 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
+import './App.css'
+import { Users } from './containers/Users'
+import { Messages } from './containers/Messages'
+import { MessageForm } from './containers/MessageForm'
 
-class App extends Component {
-  state = {
-    currentUsername: null
-  }
-
-  render() {
-    return (<h2>Hello</h2>)
-  }
-}
+const App = () => (
+  <div id="wrapper">
+    <div id="leftPanel">
+      <Users />
+    </div>
+    <div id="rightPanel">
+      <Messages />
+      <MessageForm />
+    </div>
+  </div>
+)
 
 export default App

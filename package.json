@@ -11,7 +11,9 @@
     "electron-dist": "build -c.extraMetadata.main=build/electron.js",
     "build": "react-scripts build",
     "start": "react-scripts start",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom",
+    "lint": "eslint --quiet --cache --ignore-path .gitignore .",
+    "lint-fix": "eslint --quiet --cache --fix --ignore-path .gitignore ."
   },
   "repository": "https://github.com/cpapazaf/scytale",
   "jest": {
@@ -108,10 +110,12 @@
     "wait-on": "^3.1.0"
   },
   "dependencies": {
+    "@material-ui/core": "^3.3.0",
     "electron-is-dev": "^1.0.1",
-    "react": "^16.2.0",
-    "react-desktop": "^0.3.5",
-    "react-dom": "^16.2.0"
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.1"
   },
   "browserslist": [
     ">0.2%",
