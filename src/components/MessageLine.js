@@ -8,24 +8,25 @@ const divStyle = {
   wordWrap: "break-word"
 }
 
-class MessageLine extends React.Component {
+export default class MessageLine extends React.Component {
+
+  static propTypes = {
+    message: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    timestamp: PropTypes.number.isRequired
+  }
+
   render() {
-    const messageTimestamp = new Date(this.props.timestamp)
+    const {timestamp, author, message} = this.props
+
+    const messageTimestamp = new Date(timestamp)
     const messageTime = messageTimestamp.getHours() + ':' + messageTimestamp.getMinutes()
     return (
         <div>
-        <b>{this.props.author}</b> - {messageTime}
+        <b>{author}</b> - {messageTime}
         <br/>
-        <div style={divStyle}>{this.props.message}</div>
+        <div style={divStyle}>{message}</div>
         </div>
     )
   }
 }
-
-MessageLine.propTypes = {
-  message: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  timestamp: PropTypes.number.isRequired
-}
-
-export default MessageLine

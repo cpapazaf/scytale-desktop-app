@@ -14,7 +14,16 @@ const messagesListStyle = {
 }
 
 
-class MessagesList extends React.Component {
+export default class MessagesList extends React.Component {
+
+  static propTypes = {
+    messages: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      message: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired
+    }).isRequired).isRequired
+  }
+
   constructor(props) {
     super(props)
     this.scrollToBottom = this.scrollToBottom.bind(this);
@@ -41,6 +50,8 @@ class MessagesList extends React.Component {
   }
 
   render() {
+    const {messages} = this.props
+
     this.scrollToBottom()
     return (
       <div>
@@ -51,7 +62,7 @@ class MessagesList extends React.Component {
         >
           <ul>
             {
-              this.props.messages.map(message => (
+              messages.map(message => (
                 <MessageLine
                   key={message.id}
                   {...message}
@@ -67,13 +78,3 @@ class MessagesList extends React.Component {
     )
   }
 }
-
-MessagesList.propTypes = {
-  messages: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    message: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired
-  }).isRequired).isRequired
-}
-
-export default MessagesList

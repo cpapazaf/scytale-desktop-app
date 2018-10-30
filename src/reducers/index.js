@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import messages from './messages'
 import users from './users'
+import app from './app'
 
-const chat = combineReducers({
+export default combineReducers({
   messages,
-  users
+  users,
+  app
 })
-
-export default chat

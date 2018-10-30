@@ -10,6 +10,16 @@ export const addMessage = (message, author) => ({
   author
 })
 
+export const addUsername = (username) => ({
+  type: types.ADD_USERNAME,
+  username
+})
+
+export const setView = (view) => ({
+  type: types.SET_VIEW,
+  view
+})
+
 export const messageReceived = (message, author) => ({
   type: types.MESSAGE_RECEIVED,
   id: nextMessageId++,
