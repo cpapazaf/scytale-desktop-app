@@ -103,7 +103,7 @@ export default class ChatRoomConfig extends Component {
               style={inputStyle}
               name="remote"
               label="Enter RemoteServer Url"
-              defaultValue="http://localhost:4000"
+              defaultValue={process.env.NODE_ENV === 'development'? 'http://localhost:4000': "https://scytale-server.herokuapp.com"}
               ref={(node) => {
                 this.remoteServerInput = node
               }}
