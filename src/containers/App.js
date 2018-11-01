@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import AppComponent from '../components/App'
-import { setView } from '../actions'
+import { setView } from '../actions/App'
 
 const mapStateToProps = (state) => {
   return {

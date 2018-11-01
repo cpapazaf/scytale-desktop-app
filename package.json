@@ -110,12 +110,14 @@
     "wait-on": "^3.1.0"
   },
   "dependencies": {
-    "@material-ui/core": "^3.3.0",
     "electron-is-dev": "^1.0.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "simple-peer": "^9.1.2",
+    "socket.io-client": "^2.1.1"
   },
   "browserslist": [
     ">0.2%",

@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './App.css'
-import { Users } from '../containers/Users'
+import { ChatRoomMembers } from '../containers/ChatRoomMembers'
 import { Messages } from '../containers/Messages'
 import { MessageForm } from '../containers/MessageForm'
 import { ChatRoomConfigView } from '../containers/ChatRoomConfigView'
+import { Status } from '../containers/Status'
 import {CHAT_CONFIG_VIEW, CHAT_VIEW} from '../constants/Views'
 
 export default class App extends React.Component {
@@ -23,7 +24,8 @@ export default class App extends React.Component {
         return (
           <div id="wrapper">
             <div id="leftPanel">
-              <Users />
+              <Status />
+              <ChatRoomMembers />
             </div>
             <div id="rightPanel">
               <Messages />
