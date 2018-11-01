@@ -19,6 +19,8 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 #wrapper {

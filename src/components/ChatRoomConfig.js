@@ -2,6 +2,47 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {CHAT_VIEW} from '../constants/Views'
 
+const containerStyle = {
+  position: 'fixed',
+  padding: '0',
+  margin: '0',
+  top: '0',
+  left: '0',
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}
+
+const formStyle = {
+  width: '400px',
+  border: '3px solid #f1f1f1',
+  padding: '16px',
+  borderRadius: "5px"
+}
+
+const inputStyle = {
+  width: '100%',
+  padding: '12px 20px',
+  margin: '8px 0',
+  display: 'inline-block',
+  border: '1px solid #ccc',
+  boxSizing: 'border-box'
+}
+
+const buttonStyle = {
+  backgroundColor: 'khaki',
+  color: 'white',
+  padding: '14px 20px',
+  margin: '8px 0',
+  border: 'none',
+  cursor: 'pointer',
+  width: '100%',
+  fontSize: '15px'
+}
+
+
 export default class ChatRoomConfig extends Component {
 
   static propTypes = {
@@ -30,29 +71,38 @@ export default class ChatRoomConfig extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div style={containerStyle}>
+        <form style={formStyle} onSubmit={this.handleSubmit}>
           <div>
+            <label htmlFor="uname"><b>Display Name</b></label>
             <input
-              label="Username:"
-              placeholder="For example, test1"
+              style={inputStyle}
+              name="uname"
+              label="Username"
+              placeholder="Enter Display Name"
               ref={(node) => {
                 this.usernameInput = node
               }}
             />
           </div>
+          <label htmlFor="chatroom"><b>Chatroom Name</b></label>
           <div>
             <input
-              label="ChatRoomName:"
-              placeholder="For example, chatroom1"
+              style={inputStyle}
+              name="chatroom"
+              label="ChatRoom Name"
+              placeholder="Enter Chatroom Name"
               ref={(node) => {
                 this.chatRoomNameInput = node
               }}
             />
           </div>
+          <label htmlFor="remote"><b>Remote Server</b></label>
           <div>
             <input
-              label="RemoteServer:"
+              style={inputStyle}
+              name="remote"
+              label="Enter RemoteServer Url"
               defaultValue="http://localhost:4000"
               ref={(node) => {
                 this.remoteServerInput = node
@@ -60,8 +110,10 @@ export default class ChatRoomConfig extends Component {
             />
           </div>
           <div>
-            <button type="submit">
-              Submit
+            <button 
+              style={buttonStyle} 
+              type="submit">
+                Join
             </button>
           </div>
         </form>
