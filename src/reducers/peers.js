@@ -1,6 +1,6 @@
 import * as types from '../constants/SimplePeerActions'
 
-const peers = (state = {}, action) => {
+const Peers = (state = {}, action) => {
   switch (action && action.type) {
     case types.PEER_ADD:
       return {
@@ -22,4 +22,4 @@ const peers = (state = {}, action) => {
   }
 }
 
-export default peers
+export default Peers

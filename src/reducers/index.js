@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux'
-import messages from './messages'
-import users from './users'
-import app from './app'
-import peers from './peers'
+import Messages from './Messages'
+import App from './App'
+import Peers from './Peers'
 
 export default combineReducers({
-  messages,
-  users,
-  app,
-  peers
+  messages: Messages,
+  app: App,
+  peers: Peers
 })

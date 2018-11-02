@@ -1,7 +1,8 @@
-const messages = (state = [], action) => {
+import {ADD_MESSAGE} from '../constants/SimplePeerActions'
+
+const Messages = (state = [], action) => {
   switch (action && action.type) {
-    case 'ADD_MESSAGE':
-    case 'MESSAGE_RECEIVED':
+    case ADD_MESSAGE:
       return state.concat([
         {
           message: action.message,
@@ -15,4 +16,4 @@ const messages = (state = [], action) => {
   }
 }
 
-export default messages
+export default Messages

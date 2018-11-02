@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes'
 import { CHAT_CONFIG_VIEW } from '../constants/Views'
 import { STATUS, STATUS_OFFLINE } from '../constants/ServerActions'
 
-const app = (state = {
+const App = (state = {
     currentView: CHAT_CONFIG_VIEW,
     status: STATUS_OFFLINE
   }, action) => {
@@ -32,4 +32,4 @@ const app = (state = {
   }
 }
 
-export default app
+export default App
