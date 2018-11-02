@@ -20,7 +20,6 @@ const messageInputStyle = {
 export default class MessageInput extends React.Component {
 
   static propTypes = {
-    updateMessage: PropTypes.func.isRequired,
     sendMessage: PropTypes.func.isRequired,
     username: PropTypes.string.isRequired
   }
@@ -31,7 +30,7 @@ export default class MessageInput extends React.Component {
   }
 
   render() {
-    const {updateMessage, sendMessage, username} = this.props
+    const {sendMessage, username} = this.props
 
     return (
       <textarea
@@ -42,8 +41,7 @@ export default class MessageInput extends React.Component {
         onKeyPress={(e) => {
           // check if pressed enter and the text is not empty by removing trailing new lines
           if (e.key === 'Enter' && this.input && this.input.value.trim().replace(/^\s+|\s+$/g, '') !== '') {
-            updateMessage(this.input.value, username)
-            sendMessage(this.input.value)
+            sendMessage(this.input.value, username)
             this.input.value = ''
           }
         }}

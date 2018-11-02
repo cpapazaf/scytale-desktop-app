@@ -30,10 +30,7 @@ export default class ChatRoomMembers extends React.Component {
 
   static propTypes = {
     chatRoomName: PropTypes.string.isRequired,
-    users: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired
-    }).isRequired).isRequired
+    users: PropTypes.object.isRequired
   }
 
   render() {
@@ -46,8 +43,8 @@ export default class ChatRoomMembers extends React.Component {
         <hr style={horizontalLineStyle} />
         <div style={ChatRoomMembersStyle}>
           <ul>
-            {users.map(user => (
-              <li key={user.id}>{user.name}</li>
+            {Object.keys(users).map(userId => (
+              <li key={userId}>{users[userId].name}</li>
             ))}
           </ul>
         </div>

@@ -11,12 +11,14 @@ class SocketHandler {
     }
     handleSignal = ({ userId, signal }) => {
       const peer = this.getState().peers[userId]
-      peer && peer.signal(signal)
+      peer && peer.peerObject.signal(signal)
     }
     handleUsers = ({ initiator, users }) => {
       const { socket, dispatch, getState } = this
-      const peers = getState().peers
+      const { peers } = getState()
   
+      // TODO: request the username
+
       users
       .filter(user => !peers[user.id] && user.id !== socket.id)
       .forEach(user => dispatch(SimplePeerActions.createPeer({

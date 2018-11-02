@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux'
 import MessageInputComponent from '../components/MessageInput'
 
 import * as SimplePeerActions from '../actions/SimplePeer'
-import { addMessage } from '../actions/App'
 
 const mapStateToProps = (state) => {
   return {
@@ -12,9 +11,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateMessage: (message, author) => {
-    dispatch(addMessage(message, author))
-  },
   sendMessage: bindActionCreators(SimplePeerActions.sendMessage, dispatch)
 })
 

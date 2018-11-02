@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import ChatRoomConfig from '../components/ChatRoomConfig'
-import { addUsername, setView, setChatRoomName, setRemoteServerUrl } from '../actions/App'
+import { setUsername, setView, setChatRoomName, setRemoteServerUrl } from '../actions/App'
 import * as ServerActions from '../actions/Server'
 
 const mapDispatchToProps = dispatch => ({
   updateUsername: (username) => {
-    dispatch(addUsername(username))
+    dispatch(setUsername(username))
   },
   setChatRoomName: (chatRoomName) => {
     dispatch(setChatRoomName(chatRoomName))

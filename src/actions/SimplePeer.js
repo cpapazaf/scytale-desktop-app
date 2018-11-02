@@ -1,6 +1,5 @@
 import Peer from 'simple-peer'
 import * as SimplePeerActionTypes from '../constants/SimplePeerActions'
-import {addMessage, addUser} from './App'
 
 class SimplePeerHandler {
   constructor ({ socket, user, dispatch, getState }) {
@@ -12,7 +11,7 @@ class SimplePeerHandler {
   handleError = err => {
     const { dispatch, getState, user } = this
     const peer = getState().peers[user.id]
-    peer && peer.destroy()
+    peer && peer.peerObject.destroy()
     dispatch(removePeer(user.id))
   }
   handleSignal = signal => {
@@ -21,8 +20,8 @@ class SimplePeerHandler {
     socket.emit('signal', payload)
   }
   handleConnect = () => {
-    const { dispatch, user } = this
-    dispatch(addUser(user.id, '-'))
+    // const { dispatch, user } = this
+    // dispatch(addUser(user.id, '-'))
   }
   handleData = object => {
     const { dispatch, user } = this
@@ -41,7 +40,7 @@ export function createPeer ({ socket, user, initiator }) {
 
     const oldPeer = getState().peers[userId]
     if (oldPeer) {
-      oldPeer.destroy()
+      oldPeer.peerObject.destroy()
       dispatch(removePeer(userId))
     }
 
@@ -87,10 +86,19 @@ export const destroyPeers = () => ({
   type: SimplePeerActionTypes.PEERS_DESTROY
 })
 
-export const sendMessage = message => (dispatch, getState) => {
-  message = JSON.stringify({ message })
+let incrementMessageId = 0
+const addMessage = (message, author) => ({
+  type: SimplePeerActionTypes.ADD_MESSAGE,
+  id: incrementMessageId++,
+  timestamp: Date.now(),
+  message,
+  author
+})
+
+export const sendMessage = (message, username) => (dispatch, getState) => {
   const { peers } = getState()
   for (const peer of Object.keys(peers)){
-    peers[peer].send(message)
+    peers[peer].peerObject.send(JSON.stringify({ message }))
   }
+  dispatch(addMessage(message, username))
 }

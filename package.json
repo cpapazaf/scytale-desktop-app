@@ -16,10 +16,6 @@
     "lint-fix": "eslint --quiet --cache --fix --ignore-path .gitignore ."
   },
   "repository": "https://github.com/cpapazaf/scytale",
-  "jest": {
-    "verbose": true,
-    "testURL": "http://localhost/"
-  },
   "build": {
     "appId": "com.scytaleapp.scytale-desktop-app",
     "asar": true,
