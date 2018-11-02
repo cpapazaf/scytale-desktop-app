@@ -1,6 +1,6 @@
 os:
-- osx
-- linux
+  - osx
+  - linux
 addons:
   apt:
     packages:
@@ -10,14 +10,16 @@ addons:
     - libxkbfile-dev
 language: node_js
 node_js:
-- '8'
+  - '8'
 cache:
   directories:
   - node_modules
+before_install:
+  - docker-compose --version
 script:
-- npm ci
-- npm run build
-- npm run electron-dist
+  - npm ci
+  - npm run build
+  - npm run electron-dist
 deploy:
   provider: releases
   github-token: $GH_TOKEN
