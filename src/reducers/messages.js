@@ -7,8 +7,7 @@ const Messages = (state = [], action) => {
         {
           message: action.message,
           author: action.author,
-          timestamp: action.timestamp,
-          id: action.id
+          timestamp: action.timestamp
         }
       ])
     default:

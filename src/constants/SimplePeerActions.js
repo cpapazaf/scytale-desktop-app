@@ -1,7 +1,5 @@
 export const PEER_ADD = 'PEER_ADD'
 export const PEER_REMOVE = 'PEER_REMOVE'
-export const PEERS_DESTROY = 'PEERS_DESTROY'
-export const PEERS_LIST = 'PEERS_LIST'
 
 export const PEER_EVENT_ERROR = 'error'
 export const PEER_EVENT_CONNECT = 'connect'

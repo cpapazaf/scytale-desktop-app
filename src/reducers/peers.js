@@ -6,17 +6,13 @@ const Peers = (state = {}, action) => {
       return {
         ...state,
         [action.payload.userId]: {
-          peerObject: action.payload.peer,
-          name: action.payload.name
+          peerObject: action.payload.peer
         }
       } 
     case types.PEER_REMOVE:
-      return state.filter(({ userId }) => userId !== action.payload.userId)
-    case types.PEERS_DESTROY:
-      state.forEach(peer => peer.peerObject.destroy())
-      return {}
-    case types.PEERS_LIST:
-      return state
+      let newState = Object.assign({}, state)
+      delete newState[action.payload.userId]
+      return newState
     default:
       return state
   }

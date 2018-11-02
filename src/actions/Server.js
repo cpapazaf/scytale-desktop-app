@@ -16,8 +16,6 @@ class SocketHandler {
     handleUsers = ({ initiator, users }) => {
       const { socket, dispatch, getState } = this
       const { peers } = getState()
-  
-      // TODO: request the username
 
       users
       .filter(user => !peers[user.id] && user.id !== socket.id)

@@ -20,6 +20,7 @@ before_script:
     fi
 script:
   - npm ci
+  - npm run test
   - npm run build
   - npm run electron-dist
 deploy:

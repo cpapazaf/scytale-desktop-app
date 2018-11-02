@@ -21,7 +21,7 @@ class SimplePeerHandler {
   }
   handleConnect = () => {
     // const { dispatch, user } = this
-    // dispatch(addUser(user.id, '-'))
+    // TODO: Update Peer Status
   }
   handleData = object => {
     const { dispatch, user } = this
@@ -47,8 +47,6 @@ export function createPeer ({ socket, user, initiator }) {
     const peer = new Peer({
       initiator: socket.id === initiator,
       config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:global.stun.twilio.com:3478?transport=udp' }] },
-      // Allow the peer to receive video, even if it's not sending stream:
-      // https://github.com/feross/simple-peer/issues/95
       offerConstraints: {
         offerToReceiveAudio: true,
         offerToReceiveVideo: true
@@ -68,11 +66,11 @@ export function createPeer ({ socket, user, initiator }) {
     peer.on(SimplePeerActionTypes.PEER_EVENT_SIGNAL, handler.handleSignal)
     peer.on(SimplePeerActionTypes.PEER_EVENT_DATA, handler.handleData)
 
-    dispatch(addPeer({ peer, userId }))
+    dispatch(addPeer(peer, userId))
   }
 }
 
-export const addPeer = ({ peer, userId }) => ({
+export const addPeer = (peer, userId) => ({
   type: SimplePeerActionTypes.PEER_ADD,
   payload: { peer, userId }
 })
@@ -82,14 +80,8 @@ export const removePeer = userId => ({
   payload: { userId }
 })
 
-export const destroyPeers = () => ({
-  type: SimplePeerActionTypes.PEERS_DESTROY
-})
-
-let incrementMessageId = 0
-const addMessage = (message, author) => ({
+export const addMessage = (message, author) => ({
   type: SimplePeerActionTypes.ADD_MESSAGE,
-  id: incrementMessageId++,
   timestamp: Date.now(),
   message,
   author

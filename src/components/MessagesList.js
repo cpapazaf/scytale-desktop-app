@@ -18,7 +18,7 @@ export default class MessagesList extends React.Component {
 
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      timestamp: PropTypes.number.isRequired,
       message: PropTypes.string.isRequired,
       author: PropTypes.string.isRequired
     }).isRequired).isRequired
@@ -64,7 +64,7 @@ export default class MessagesList extends React.Component {
             {
               messages.map(message => (
                 <MessageLine
-                  key={message.id}
+                  key={message.timestamp}
                   {...message}
                 />
               ))
