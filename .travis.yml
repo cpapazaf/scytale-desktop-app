@@ -14,8 +14,10 @@ node_js:
 cache:
   directories:
   - node_modules
-before_install:
-  - docker-compose --version
+before_script:
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+        docker-compose --version;
+    fi
 script:
   - npm ci
   - npm run build
