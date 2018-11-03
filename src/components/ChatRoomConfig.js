@@ -46,10 +46,8 @@ const buttonStyle = {
 export default class ChatRoomConfig extends Component {
 
   static propTypes = {
-    updateUsername: PropTypes.func.isRequired,
     setView: PropTypes.func.isRequired,
-    setChatRoomName: PropTypes.func.isRequired,
-    setRemoteServerUrl: PropTypes.func.isRequired,
+    setConfig: PropTypes.func.isRequired,
     initConnection: PropTypes.func.isRequired
   }
 
@@ -64,9 +62,7 @@ export default class ChatRoomConfig extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.props.updateUsername(this.state.username)
-    this.props.setChatRoomName(this.state.chatroom)
-    this.props.setRemoteServerUrl(this.state.serverUrl || this.remoteServerInput.value)
+    this.props.setConfig(this.state.username, this.state.chatroom, this.state.serverUrl || this.remoteServerInput.value)
     this.props.initConnection()
     this.props.setView(CHAT_VIEW)
   }

@@ -5,19 +5,15 @@ import TestUtils from 'react-dom/test-utils'
 
 describe('components/ChatRoomConfig', () => {
 
-  let component, node, updateUsername, setView, setChatRoomName, setRemoteServerUrl, initConnection
+  let component, node, setView, setConfig, initConnection
   function render () {
-    updateUsername = jest.fn()
+    setConfig = jest.fn()
     setView = jest.fn()
-    setChatRoomName = jest.fn()
-    setRemoteServerUrl = jest.fn()
     initConnection = jest.fn()
     component = TestUtils.renderIntoDocument(
       <ChatRoomConfig
-       updateUsername={updateUsername}
+       setConfig={setConfig}
        setView={setView}
-       setChatRoomName={setChatRoomName}
-       setRemoteServerUrl={setRemoteServerUrl}
        initConnection={initConnection}
       />
     )
@@ -34,10 +30,8 @@ describe('components/ChatRoomConfig', () => {
 
     let usernameInput, chatroomInput, serverurlInput
     beforeEach(() => {
-      updateUsername.mockClear()
+      setConfig.mockClear()
       setView.mockClear()
-      setChatRoomName.mockClear()
-      setRemoteServerUrl.mockClear()
       initConnection.mockClear()
     })
 
@@ -62,15 +56,13 @@ describe('components/ChatRoomConfig', () => {
         expect(serverurlInput.value).toBe(remoteServer)
 
         TestUtils.Simulate.submit(node.querySelector('form'))
-        expect(updateUsername.mock.calls).toEqual([[ username ]])
-        expect(setChatRoomName.mock.calls).toEqual([[ chatroom ]])
-        expect(setRemoteServerUrl.mock.calls).toEqual([[ remoteServer ]])
+        expect(setConfig.mock.calls).toEqual([[ username, chatroom, remoteServer ]])
         expect(initConnection.mock.calls.length).toBe(1)
       })
 
       it('respects the default serverUrl', () => {
         TestUtils.Simulate.submit(node.querySelector('form'))
-        expect(setRemoteServerUrl.mock.calls).toEqual([[ 'https://scytale-server.herokuapp.com' ]])
+        expect(setConfig.mock.calls).toEqual([[ '', '', 'https://scytale-server.herokuapp.com' ]])
       })
     })
   })

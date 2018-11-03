@@ -1,4 +1,4 @@
-import {setView, setUsername, setChatRoomName, setRemoteServerUrl} from '../actions/App'
+import { setView, setConfig } from '../actions/App'
 import App from './App'
 
 describe('reducers/App', () => {
@@ -11,29 +11,15 @@ describe('reducers/App', () => {
         })
     })
 
-    describe('setUsername', () => {
-        it('sets username to Bob', () => {
+    describe('setConfig', () => {
+        it('sets Config', () => {
             const uname = 'Bob'
+            const roomname = 'bla'
+            const serverUrl = 'http://bla'
             let state = App()
-            state = App(state, setUsername(uname))
+            state = App(state, setConfig(uname, roomname, serverUrl))
             expect(state.username).toBe(uname)
-        })
-    })
-
-    describe('setChatRoomName', () => {
-        it('sets ChatRoomName to test', () => {
-            const crname = 'test'
-            let state = App()
-            state = App(state, setChatRoomName(crname))
-            expect(state.chatRoomName).toBe(crname)
-        })
-    })
-
-    describe('setRemoteServerUrl', () => {
-        it('sets RemoteServerUrl to http://something', () => {
-            const serverUrl = 'http://something'
-            let state = App()
-            state = App(state, setRemoteServerUrl(serverUrl))
+            expect(state.chatRoomName).toBe(roomname)
             expect(state.remoteServerUrl).toBe(serverUrl)
         })
     })
