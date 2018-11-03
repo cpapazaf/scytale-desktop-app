@@ -80,6 +80,7 @@ export default class ChatRoomConfig extends Component {
               name="uname"
               label="Username"
               placeholder="Enter Display Name"
+              autoFocus
               ref={(node) => {
                 this.usernameInput = node
               }}

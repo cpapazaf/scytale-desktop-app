@@ -23,9 +23,9 @@ export default class MessageLine extends React.Component {
     const messageTime = messageTimestamp.getHours() + ':' + messageTimestamp.getMinutes()
     return (
         <div>
-        <b>{author}</b> - {messageTime}
-        <br/>
-        <div style={divStyle}>{message}</div>
+          <b>{author}</b> - {messageTime}
+          <br/>
+          <div style={divStyle}>{message}</div>
         </div>
     )
   }

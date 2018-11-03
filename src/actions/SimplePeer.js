@@ -87,10 +87,10 @@ export const addMessage = (message, author) => ({
   author
 })
 
-export const sendMessage = (message, username) => (dispatch, getState) => {
-  const { peers } = getState()
+export const sendMessage = (message) => (dispatch, getState) => {
+  const { peers, app } = getState()
   for (const peer of Object.keys(peers)){
     peers[peer].peerObject.send(JSON.stringify({ message }))
   }
-  dispatch(addMessage(message, username))
+  dispatch(addMessage(message, app.username))
 }
