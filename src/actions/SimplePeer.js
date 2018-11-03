@@ -20,13 +20,23 @@ class SimplePeerHandler {
     socket.emit('signal', payload)
   }
   handleConnect = () => {
-    // const { dispatch, user } = this
-    // TODO: Update Peer Status
+    const { user, getState, socket } = this
+    // Peer connected, send public key and name
+    const peer = getState().peers[user.id]
+    const username = getState().app.username
+    peer.peerObject.send(JSON.stringify({ message: '####name:' + username + '####id:' + socket.id }))
   }
   handleData = object => {
-    const { dispatch, user } = this
+    const { dispatch, user, getState } = this
     object = JSON.parse(new window.TextDecoder('utf-8').decode(object))
-    dispatch(addMessage(object.message, user.id))
+    const unameMatcherRegex = /^####name:(.*)####id:(.*)$/g
+    var match = unameMatcherRegex.exec(object.message)
+    if (match) {
+      dispatch(updatePeerInfo(match[2], match[1]))
+    } else {
+      const { peers } = getState()
+      dispatch(addMessage(object.message, peers[user.id].username))
+    }
   }
   handleClose = () => {
     const { dispatch, user } = this
@@ -78,6 +88,11 @@ export const addPeer = (peer, userId) => ({
 export const removePeer = userId => ({
   type: SimplePeerActionTypes.PEER_REMOVE,
   payload: { userId }
+})
+
+export const updatePeerInfo = (userId, username) => ({
+  type: SimplePeerActionTypes.PEER_UPDATE,
+  payload: { userId,  username}
 })
 
 export const addMessage = (message, author) => ({

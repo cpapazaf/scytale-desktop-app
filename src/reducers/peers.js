@@ -13,6 +13,10 @@ const Peers = (state = {}, action) => {
       let newState = Object.assign({}, state)
       delete newState[action.payload.userId]
       return newState
+    case types.PEER_UPDATE:
+      let newUpdatedState = Object.assign({}, state)
+      newUpdatedState[action.payload.userId].username = action.payload.username
+      return newUpdatedState
     default:
       return state
   }

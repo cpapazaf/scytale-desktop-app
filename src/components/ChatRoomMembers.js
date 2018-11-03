@@ -44,7 +44,7 @@ export default class ChatRoomMembers extends React.Component {
         <div style={ChatRoomMembersStyle}>
           <ul>
             {Object.keys(peers).map(userId => (
-              <li key={userId}>{userId}</li>
+              <li key={userId}>{peers[userId].username}</li>
             ))}
           </ul>
         </div>
