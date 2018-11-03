@@ -32,6 +32,7 @@ class SimplePeerHandler {
     const unameMatcherRegex = /^####name:(.*)####id:(.*)$/g
     var match = unameMatcherRegex.exec(object.message)
     if (match) {
+      // TODO: script execution might happen here. Need to sanitize uname (max length, chars etc)
       dispatch(updatePeerInfo(match[2], match[1]))
     } else {
       const { peers } = getState()
