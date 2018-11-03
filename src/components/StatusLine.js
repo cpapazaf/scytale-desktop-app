@@ -5,7 +5,7 @@ import { STATUS_ONLINE } from '../constants/ServerActions'
 const StatusLineStyle = {
   backgroundColor: 'White',
   height: "40px",
-  borderBottom: '2px solid red'
+  borderBottom: '2px solid #D1E3FF'
 }
 
 const IsOnlineStyle = {

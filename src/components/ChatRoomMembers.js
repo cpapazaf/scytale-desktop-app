@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const wrapperStyle = {
   height: '100%',
-  backgroundColor: 'Khaki'
+  backgroundColor: 'khaki'
 }
 
 const ChatRoomNameStyle = {

@@ -3,18 +3,18 @@ import PropTypes from 'prop-types'
 
 const messageInputStyle = {
   borderRadius: "5px",
-  border: "solid 3px GRAY_LIGHT",
+  border: "solid 3px #D1E3FF",
   boxShadow: "0 0 0 2px WHITE",
   boxSizing: "padding-box",
   fontSize: "15px",
   overflow: "auto",
   position: "absolute",
-  width: "calc(100% - 26px)",
+  width: "calc(100% - 46px)",
   resize: "none",
   height: "40px",
-  right: "10px",
-  left: "10px",
-  bottom: "10px"
+  right: "20px",
+  left: "20px",
+  bottom: "15px"
 }
 
 export default class MessageInput extends React.Component {
