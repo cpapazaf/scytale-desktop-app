@@ -55,21 +55,24 @@ export default class ChatRoomConfig extends Component {
 
   constructor(props) {
     super(props)
-    this.usernameInput = null
-    this.chatRoomNameInput = null
-    this.remoteServerInput = null
+    this.state = {
+      username: '',
+      chatroom: '',
+      serverUrl: process.env.NODE_ENV === 'development'? 'http://localhost:4000': "https://scytale-server.herokuapp.com"
+    }
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    this.props.updateUsername(this.usernameInput.value)
-    this.props.setChatRoomName(this.chatRoomNameInput.value)
-    this.props.setRemoteServerUrl(this.remoteServerInput.value)
+    this.props.updateUsername(this.state.username)
+    this.props.setChatRoomName(this.state.chatroom)
+    this.props.setRemoteServerUrl(this.state.serverUrl || this.remoteServerInput.value)
     this.props.initConnection()
     this.props.setView(CHAT_VIEW)
   }
 
   render() {
+    const { username, chatroom,  serverUrl} = this.state
     return (
       <div style={containerStyle}>
         <form style={formStyle} onSubmit={this.handleSubmit}>
@@ -81,9 +84,12 @@ export default class ChatRoomConfig extends Component {
               label="Username"
               placeholder="Enter Display Name"
               autoFocus
-              ref={(node) => {
-                this.usernameInput = node
+              onChange={ e => {
+                this.setState({
+                  username: e.target.value
+                })
               }}
+              value={username}
             />
           </div>
           <label htmlFor="chatroom"><b>Chatroom Name</b></label>
@@ -93,21 +99,29 @@ export default class ChatRoomConfig extends Component {
               name="chatroom"
               label="ChatRoom Name"
               placeholder="Enter Chatroom Name"
-              ref={(node) => {
-                this.chatRoomNameInput = node
+              onChange={ e => {
+                this.setState({
+                  chatroom: e.target.value
+                })
               }}
+              value={chatroom}
             />
           </div>
-          <label htmlFor="remote"><b>Remote Server</b></label>
+          <label htmlFor="serverurl"><b>Remote Server</b></label>
           <div>
             <input
               style={inputStyle}
-              name="remote"
+              name="serverurl"
               label="Enter RemoteServer Url"
-              defaultValue={process.env.NODE_ENV === 'development'? 'http://localhost:4000': "https://scytale-server.herokuapp.com"}
               ref={(node) => {
                 this.remoteServerInput = node
               }}
+              onChange={ e => {
+                this.setState({
+                  serverUrl: e.target.value
+                })
+              }}
+              value={serverUrl}
             />
           </div>
           <div>

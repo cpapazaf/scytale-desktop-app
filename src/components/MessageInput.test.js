@@ -27,7 +27,7 @@ describe('components/MessageInput', () => {
       textarea = node.querySelector('textarea')
       TestUtils.Simulate.change(textarea, {
         target: { value: message }
-      });
+      })
       expect(textarea.value).toBe(message)
     })
 
