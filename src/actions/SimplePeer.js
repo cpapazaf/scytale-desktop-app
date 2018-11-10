@@ -1,5 +1,8 @@
 import Peer from 'simple-peer'
 import * as SimplePeerActionTypes from '../constants/SimplePeerActions'
+import crypto from 'crypto'
+
+const IV_LENGTH = 16
 
 class SimplePeerHandler {
   constructor ({ socket, user, dispatch, getState }) {
@@ -23,20 +26,26 @@ class SimplePeerHandler {
     const { user, getState, socket } = this
     // Peer connected, send public key and name
     const peer = getState().peers[user.id]
-    const username = getState().app.username
-    peer.peerObject.send(JSON.stringify({ message: '####name:' + username + '####id:' + socket.id }))
+    const { username, publicKey } = getState().app
+    peer.peerObject.send(JSON.stringify({ 
+      socketId: socket.id,
+      name: username,
+      publicKey: publicKey
+    }))
   }
   handleData = object => {
     const { dispatch, user, getState } = this
     object = JSON.parse(new window.TextDecoder('utf-8').decode(object))
-    const unameMatcherRegex = /^####name:(.*)####id:(.*)$/g
-    var match = unameMatcherRegex.exec(object.message)
-    if (match) {
-      // TODO: script execution might happen here. Need to sanitize uname (max length, chars etc)
-      dispatch(updatePeerInfo(match[2], match[1]))
-    } else {
+    if (object.socketId) {
+      const { ecdh } = getState().app
+      // We received the internal handshake lets calculate the secret and keep only 32 leftmost chars
+      const sharedSecret = ecdh.computeSecret(object.publicKey, 'hex', 'hex').substring(0,32)
+      dispatch(updatePeerInfo(object.socketId, object.name, object.publicKey, sharedSecret))
+    }
+    if (object.message) {
       const { peers } = getState()
-      dispatch(addMessage(object.message, peers[user.id].username))
+      const decryptedMessage = decrypt(object.message, peers[user.id].sharedSecret)
+      dispatch(addMessage(decryptedMessage, peers[user.id].username))
     }
   }
   handleClose = () => {
@@ -91,9 +100,9 @@ export const removePeer = userId => ({
   payload: { userId }
 })
 
-export const updatePeerInfo = (userId, username) => ({
+export const updatePeerInfo = (userId, username, publicKey, sharedSecret) => ({
   type: SimplePeerActionTypes.PEER_UPDATE,
-  payload: { userId,  username}
+  payload: { userId, username, publicKey, sharedSecret }
 })
 
 export const addMessage = (message, author) => ({
@@ -106,7 +115,30 @@ export const addMessage = (message, author) => ({
 export const sendMessage = (message) => (dispatch, getState) => {
   const { peers, app } = getState()
   for (const peer of Object.keys(peers)){
-    peers[peer].peerObject.send(JSON.stringify({ message }))
+    const encryptedMessage = encrypt(message, peers[peer].sharedSecret)
+    peers[peer].peerObject.send(JSON.stringify({ message: encryptedMessage }))
   }
   dispatch(addMessage(message, app.username))
+}
+
+const encrypt = (text, secret) => {
+  let iv = crypto.randomBytes(IV_LENGTH)
+  let cipher = crypto.createCipheriv('aes-256-cbc', new Buffer(secret), iv)
+  let encrypted = cipher.update(text)
+
+  encrypted = Buffer.concat([encrypted, cipher.final()])
+
+  return iv.toString('hex') + ':' + encrypted.toString('hex')
+}
+
+const decrypt = (text, secret) => {
+  let textParts = text.split(':')
+  let iv = new Buffer(textParts.shift(), 'hex')
+  let encryptedText = new Buffer(textParts.join(':'), 'hex')
+  let decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer(secret), iv)
+  let decrypted = decipher.update(encryptedText)
+
+  decrypted = Buffer.concat([decrypted, decipher.final()])
+
+  return decrypted.toString()
 }

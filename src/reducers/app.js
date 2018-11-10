@@ -11,7 +11,9 @@ const App = (state = {
         return Object.assign({}, state, {
           username: action.username,
           chatRoomName: action.chatRoomName,
-          remoteServerUrl: action.remoteServerUrl
+          remoteServerUrl: action.remoteServerUrl,
+          ecdh: action.ecdh,
+          publicKey: action.publicKey
         })
       case types.SET_VIEW:
         return Object.assign({}, state, {

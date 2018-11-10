@@ -15,7 +15,12 @@ const Peers = (state = {}, action) => {
       return newState
     case types.PEER_UPDATE:
       let newUpdatedState = Object.assign({}, state)
-      newUpdatedState[action.payload.userId].username = action.payload.username
+      newUpdatedState[action.payload.userId] = {
+        ...state[action.payload.userId],
+        username: action.payload.username,
+        publicKey: action.payload.publicKey,
+        sharedSecret: action.payload.sharedSecret
+      }
       return newUpdatedState
     default:
       return state
