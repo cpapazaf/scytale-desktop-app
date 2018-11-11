@@ -4,8 +4,6 @@ import crypto from 'crypto'
 export const setConfig = (username, chatRoomName, remoteServerUrl) => {
   return (dispatch, getState) => {
     const ecdh = crypto.createECDH('prime256v1')
-    // console.log(crypto.getCurves())
-    console.log(crypto.getCiphers())
     ecdh.generateKeys()
     dispatch({
       type: types.SET_CONFIG,

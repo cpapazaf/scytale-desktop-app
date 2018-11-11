@@ -1,5 +1,12 @@
 import { setView, setConfig } from '../actions/App'
+import * as types from '../constants/ActionTypes'
 import App from './App'
+import { getAction } from '../../test/utils/getAction'
+
+import configureMockStore from "redux-mock-store"
+import thunk from "redux-thunk"
+
+export const mockStore = configureMockStore([thunk])
 
 describe('reducers/App', () => {
     describe('setView', () => {
@@ -8,19 +15,6 @@ describe('reducers/App', () => {
             let state = App()
             state = App(state, setView(view))
             expect(state.currentView).toBe(view)
-        })
-    })
-
-    describe('setConfig', () => {
-        it('sets Config', () => {
-            const uname = 'Bob'
-            const roomname = 'bla'
-            const serverUrl = 'http://bla'
-            let state = App()
-            state = App(state, setConfig(uname, roomname, serverUrl))
-            expect(state.username).toBe(uname)
-            expect(state.chatRoomName).toBe(roomname)
-            expect(state.remoteServerUrl).toBe(serverUrl)
         })
     })
 })

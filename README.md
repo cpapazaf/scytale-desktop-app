@@ -6,15 +6,19 @@
 
 ## Security
 
-Every message is encrypted using ECIES with SHA256. It can only be decrypted by your private key. Keys are created on the fly and kept in mem (state)
-
-https://github.com/indutny/elliptic
+Every message is encrypted using ECDH with SHA256. It can only be decrypted by your private key. Keys are created on the fly and kept in mem (state)
 
 ## Dev
 
 ```bash
 # Install dependencies
 npm install
-# Run the app
-npm start
+# Run the app in dev mode
+npm run electron-dev
+```
+
+### Test
+
+```bash
+npm test --watchAll
 ```

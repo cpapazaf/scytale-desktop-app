@@ -45,7 +45,12 @@ class SimplePeerHandler {
     if (object.message) {
       const { peers } = getState()
       const decryptedMessage = decrypt(object.message, peers[user.id].sharedSecret)
-      dispatch(addMessage(decryptedMessage, peers[user.id].username))
+      const hashOfEncryptedMessage = hash(object.message)
+      if (arraysEqual(object.hash.data, hashOfEncryptedMessage)) {
+        dispatch(addMessage(decryptedMessage, peers[user.id].username))
+      } else {
+        dispatch(addMessage('Incomming Message Hash is not correct. Possible Security breach! Restart Communication in a new Room', 'Scytale App'))
+      }
     }
   }
   handleClose = () => {
@@ -90,6 +95,17 @@ export function createPeer ({ socket, user, initiator }) {
   }
 }
 
+const arraysEqual = (a, b) => {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length !== b.length) return false;
+  
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
 export const addPeer = (peer, userId) => ({
   type: SimplePeerActionTypes.PEER_ADD,
   payload: { peer, userId }
@@ -116,7 +132,8 @@ export const sendMessage = (message) => (dispatch, getState) => {
   const { peers, app } = getState()
   for (const peer of Object.keys(peers)){
     const encryptedMessage = encrypt(message, peers[peer].sharedSecret)
-    peers[peer].peerObject.send(JSON.stringify({ message: encryptedMessage }))
+    const hashOfEncryptedMessage = hash(encryptedMessage)
+    peers[peer].peerObject.send(JSON.stringify({ message: encryptedMessage, hash: hashOfEncryptedMessage }))
   }
   dispatch(addMessage(message, app.username))
 }
@@ -129,6 +146,10 @@ const encrypt = (text, secret) => {
   encrypted = Buffer.concat([encrypted, cipher.final()])
 
   return iv.toString('hex') + ':' + encrypted.toString('hex')
+}
+
+const hash = (text) => {
+  return crypto.createHash("sha256").update(text).digest()
 }
 
 const decrypt = (text, secret) => {
