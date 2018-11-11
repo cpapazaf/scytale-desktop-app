@@ -45,8 +45,8 @@ class SimplePeerHandler {
     if (object.message) {
       const { peers } = getState()
       const decryptedMessage = decrypt(object.message, peers[user.id].sharedSecret)
-      const hashOfEncryptedMessage = hash(object.message)
-      if (arraysEqual(object.hash.data, hashOfEncryptedMessage)) {
+      const hashOfDecryptedMessage = hash(decryptedMessage)
+      if (arraysEqual(object.hash.data, hashOfDecryptedMessage)) {
         dispatch(addMessage(decryptedMessage, peers[user.id].username))
       } else {
         dispatch(addMessage('Incomming Message Hash is not correct. Possible Security breach! Restart Communication in a new Room', 'Scytale App'))
@@ -132,8 +132,8 @@ export const sendMessage = (message) => (dispatch, getState) => {
   const { peers, app } = getState()
   for (const peer of Object.keys(peers)){
     const encryptedMessage = encrypt(message, peers[peer].sharedSecret)
-    const hashOfEncryptedMessage = hash(encryptedMessage)
-    peers[peer].peerObject.send(JSON.stringify({ message: encryptedMessage, hash: hashOfEncryptedMessage }))
+    const hashOfOriginalMessage = hash(message)
+    peers[peer].peerObject.send(JSON.stringify({ message: encryptedMessage, hash: hashOfOriginalMessage }))
   }
   dispatch(addMessage(message, app.username))
 }
