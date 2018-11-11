@@ -6,7 +6,9 @@
 
 ## Security
 
-Every message is encrypted using ECDH with SHA256. It can only be decrypted by your private key. Keys are created on the fly and kept in mem (state)
+Every message is encrypted using ECDH (prime256v1) with SHA256 (aes-256-cbc). It can only be decrypted by your private key. Keys are created on the fly and kept in mem (state)
+
+Check [safecurves](http://safecurves.cr.yp.to/)
 
 ## Dev
 
