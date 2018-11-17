@@ -1,6 +1,9 @@
 import io from 'socket.io-client'
-import * as actions from '../constants/ServerActions'
-import * as SimplePeerActions from './SimplePeer'
+import * as types from '../constants/ActionTypes'
+import {STATUS_OFFLINE, STATUS_ONLINE} from '../constants/ServerConstants'
+import * as SimplePeerActions from './SimplePeerActions'
+import { getChatRoomName, getRemoteServerUrl } from '../selectors/AppSelectors'
+import { getPeer } from '../selectors/PeerSelectors'
 
 class SocketHandler {
     constructor ({ socket, roomName, dispatch, getState }) {
@@ -10,15 +13,15 @@ class SocketHandler {
       this.getState = getState
     }
     handleSignal = ({ userId, signal }) => {
-      const peer = this.getState().peers[userId]
+      const peer = getPeer(this.getState(), userId)
       peer && peer.peerObject.signal(signal)
     }
     handleUsers = ({ initiator, users }) => {
       const { socket, dispatch, getState } = this
-      const { peers } = getState()
+      const state = getState()
 
       users
-      .filter(user => !peers[user.id] && user.id !== socket.id)
+      .filter(user => !getPeer(state, user.id) && user.id !== socket.id)
       .forEach(user => dispatch(SimplePeerActions.createPeer({
         socket,
         user,
@@ -29,7 +32,7 @@ class SocketHandler {
 
 const handshake = ({ socket }) => {
   return (dispatch, getState) => {
-    const roomName = getState().app.chatRoomName
+    const roomName = getChatRoomName(getState())
     const handler = new SocketHandler({
       socket,
       roomName,
@@ -51,14 +54,14 @@ const connect = (remoteServerUrl) => dispatch => {
       })
       socket.on('connect', () => {
           dispatch({
-            type: actions.STATUS,
-            status: actions.STATUS_ONLINE
+            type: types.STATUS,
+            status: STATUS_ONLINE
           })
       })
       socket.on('disconnect', () => {
           dispatch({
-            type: actions.STATUS,
-            status: actions.STATUS_OFFLINE
+            type: types.STATUS,
+            status: STATUS_OFFLINE
           })
       })
   })
@@ -66,9 +69,9 @@ const connect = (remoteServerUrl) => dispatch => {
 
 const initConnection = () => {
   return (dispatch, getState) => {
-    const remoteServerUrl = getState().app.remoteServerUrl
+    const remoteServerUrl = getRemoteServerUrl(getState())
     return dispatch({
-      type: actions.INIT_CONNECTION,
+      type: types.INIT_CONNECTION,
       payload: connect(remoteServerUrl)(dispatch)
               .then((socket) => {
                   dispatch(handshake({

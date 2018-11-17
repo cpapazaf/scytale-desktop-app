@@ -1,4 +1,4 @@
-import { addPeer, removePeer, updatePeerInfo } from '../actions/SimplePeer'
+import { addPeer, removePeer, updatePeerInfo } from '../actions/SimplePeerActions'
 import Peers from './Peers'
 
 describe('reducers/Peers', () => {

@@ -1,6 +1,6 @@
 import * as types from '../constants/ActionTypes'
-import { CHAT_CONFIG_VIEW } from '../constants/Views'
-import { STATUS, STATUS_OFFLINE } from '../constants/ServerActions'
+import { CHAT_CONFIG_VIEW } from '../constants/ViewsConstants'
+import { STATUS_OFFLINE } from '../constants/ServerConstants'
 
 const App = (state = {
     currentView: CHAT_CONFIG_VIEW,
@@ -19,7 +19,7 @@ const App = (state = {
         return Object.assign({}, state, {
           currentView: action.view
         })
-      case STATUS:
+      case types.STATUS:
         return Object.assign({}, state, {
           status: action.status
         })

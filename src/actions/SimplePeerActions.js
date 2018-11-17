@@ -1,8 +1,9 @@
 import Peer from 'simple-peer'
-import * as SimplePeerActionTypes from '../constants/SimplePeerActions'
-import crypto from 'crypto'
-
-const IV_LENGTH = 16
+import * as types from '../constants/ActionTypes'
+import * as SimplePeerConstants from '../constants/SimplePeerConstants'
+import { getPeer, getPeerUsername, getPeerSharedSecret, getPeerIds } from '../selectors/PeerSelectors'
+import { getUsername, getPublicKey, getEcdh } from '../selectors/AppSelectors'
+import { encrypt, decrypt, hash } from '../utils/security'
 
 class SimplePeerHandler {
   constructor ({ socket, user, dispatch, getState }) {
@@ -13,7 +14,7 @@ class SimplePeerHandler {
   }
   handleError = err => {
     const { dispatch, getState, user } = this
-    const peer = getState().peers[user.id]
+    const peer = getPeer(getState(), user.id)
     peer && peer.peerObject.destroy()
     dispatch(removePeer(user.id))
   }
@@ -25,29 +26,29 @@ class SimplePeerHandler {
   handleConnect = () => {
     const { user, getState, socket } = this
     // Peer connected, send public key and name
-    const peer = getState().peers[user.id]
-    const { username, publicKey } = getState().app
+    const state = getState()
+    const peer = getPeer(state, user.id)
     peer.peerObject.send(JSON.stringify({ 
       socketId: socket.id,
-      name: username,
-      publicKey: publicKey
+      name: getUsername(state),
+      publicKey: getPublicKey(state)
     }))
   }
   handleData = object => {
     const { dispatch, user, getState } = this
+    const state = getState()
     object = JSON.parse(new window.TextDecoder('utf-8').decode(object))
     if (object.socketId) {
-      const { ecdh } = getState().app
+      const ecdh = getEcdh(state)
       // We received the internal handshake lets calculate the secret and keep only 32 leftmost chars
       const sharedSecret = ecdh.computeSecret(object.publicKey, 'hex', 'hex').substring(0,32)
       dispatch(updatePeerInfo(object.socketId, object.name, object.publicKey, sharedSecret))
     }
     if (object.message) {
-      const { peers } = getState()
-      const decryptedMessage = decrypt(object.message, peers[user.id].sharedSecret)
+      const decryptedMessage = decrypt(object.message, getPeerSharedSecret(state, user.id))
       const hashOfDecryptedMessage = hash(decryptedMessage)
       if (arraysEqual(object.hash.data, hashOfDecryptedMessage)) {
-        dispatch(addMessage(decryptedMessage, peers[user.id].username))
+        dispatch(addMessage(decryptedMessage, getPeerUsername(state, user.id)))
       } else {
         dispatch(addMessage('Incomming Message Hash is not correct. Possible Security breach! Restart Communication in a new Room', 'Scytale App'))
       }
@@ -63,7 +64,7 @@ export function createPeer ({ socket, user, initiator }) {
   return (dispatch, getState) => {
     const userId = user.id
 
-    const oldPeer = getState().peers[userId]
+    const oldPeer = getPeer(getState(), userId)
     if (oldPeer) {
       oldPeer.peerObject.destroy()
       dispatch(removePeer(userId))
@@ -85,11 +86,11 @@ export function createPeer ({ socket, user, initiator }) {
       getState
     })
 
-    peer.once(SimplePeerActionTypes.PEER_EVENT_ERROR, handler.handleError)
-    peer.once(SimplePeerActionTypes.PEER_EVENT_CONNECT, handler.handleConnect)
-    peer.once(SimplePeerActionTypes.PEER_EVENT_CLOSE, handler.handleClose)
-    peer.on(SimplePeerActionTypes.PEER_EVENT_SIGNAL, handler.handleSignal)
-    peer.on(SimplePeerActionTypes.PEER_EVENT_DATA, handler.handleData)
+    peer.once(SimplePeerConstants.PEER_EVENT_ERROR, handler.handleError)
+    peer.once(SimplePeerConstants.PEER_EVENT_CONNECT, handler.handleConnect)
+    peer.once(SimplePeerConstants.PEER_EVENT_CLOSE, handler.handleClose)
+    peer.on(SimplePeerConstants.PEER_EVENT_SIGNAL, handler.handleSignal)
+    peer.on(SimplePeerConstants.PEER_EVENT_DATA, handler.handleData)
 
     dispatch(addPeer(peer, userId))
   }
@@ -107,59 +108,33 @@ const arraysEqual = (a, b) => {
 }
 
 export const addPeer = (peer, userId) => ({
-  type: SimplePeerActionTypes.PEER_ADD,
+  type: types.PEER_ADD,
   payload: { peer, userId }
 })
 
 export const removePeer = userId => ({
-  type: SimplePeerActionTypes.PEER_REMOVE,
+  type: types.PEER_REMOVE,
   payload: { userId }
 })
 
 export const updatePeerInfo = (userId, username, publicKey, sharedSecret) => ({
-  type: SimplePeerActionTypes.PEER_UPDATE,
+  type: types.PEER_UPDATE,
   payload: { userId, username, publicKey, sharedSecret }
 })
 
 export const addMessage = (message, author) => ({
-  type: SimplePeerActionTypes.ADD_MESSAGE,
+  type: types.ADD_MESSAGE,
   timestamp: Date.now(),
   message,
   author
 })
 
 export const sendMessage = (message) => (dispatch, getState) => {
-  const { peers, app } = getState()
-  for (const peer of Object.keys(peers)){
-    const encryptedMessage = encrypt(message, peers[peer].sharedSecret)
+  const state = getState()
+  for (const peerId of getPeerIds(state)){
+    const encryptedMessage = encrypt(message, getPeerSharedSecret(state, peerId))
     const hashOfOriginalMessage = hash(message)
-    peers[peer].peerObject.send(JSON.stringify({ message: encryptedMessage, hash: hashOfOriginalMessage }))
+    getPeer(state, peerId).peerObject.send(JSON.stringify({ message: encryptedMessage, hash: hashOfOriginalMessage }))
   }
-  dispatch(addMessage(message, app.username))
-}
-
-const encrypt = (text, secret) => {
-  let iv = crypto.randomBytes(IV_LENGTH)
-  let cipher = crypto.createCipheriv('aes-256-cbc', new Buffer(secret), iv)
-  let encrypted = cipher.update(text)
-
-  encrypted = Buffer.concat([encrypted, cipher.final()])
-
-  return iv.toString('hex') + ':' + encrypted.toString('hex')
-}
-
-const hash = (text) => {
-  return crypto.createHash("sha256").update(text).digest()
-}
-
-const decrypt = (text, secret) => {
-  let textParts = text.split(':')
-  let iv = new Buffer(textParts.shift(), 'hex')
-  let encryptedText = new Buffer(textParts.join(':'), 'hex')
-  let decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer(secret), iv)
-  let decrypted = decipher.update(encryptedText)
-
-  decrypted = Buffer.concat([decrypted, decipher.final()])
-
-  return decrypted.toString()
+  dispatch(addMessage(message, getUsername(state)))
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { STATUS_ONLINE } from '../constants/ServerActions'
+import { STATUS_ONLINE } from '../constants/ServerConstants'
 
 const StatusLineStyle = {
   backgroundColor: 'White',

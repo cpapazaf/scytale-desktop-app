@@ -1,17 +1,16 @@
 import * as types from '../constants/ActionTypes'
-import crypto from 'crypto'
+import { generatePublicKey } from '../utils/security'
 
 export const setConfig = (username, chatRoomName, remoteServerUrl) => {
   return (dispatch, getState) => {
-    const ecdh = crypto.createECDH('prime256v1')
-    ecdh.generateKeys()
+    const { ecdh, publicKey } = generatePublicKey()
     dispatch({
       type: types.SET_CONFIG,
       username,
       chatRoomName,
       remoteServerUrl,
       ecdh: ecdh,
-      publicKey: ecdh.getPublicKey('hex')
+      publicKey: publicKey
     })
   }
 

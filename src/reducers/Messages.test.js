@@ -1,4 +1,4 @@
-import { addMessage } from '../actions/SimplePeer'
+import { addMessage } from '../actions/SimplePeerActions'
 import Messages from './Messages'
 
 describe('reducers/Messages', () => {

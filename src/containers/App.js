@@ -1,9 +1,10 @@
 import { connect } from 'react-redux'
 import AppComponent from '../components/App'
+import { getView } from '../selectors/AppSelectors'
 
 const mapStateToProps = (state) => {
   return {
-    currentView: state.app.currentView
+    currentView: getView(state)
   }
 }
 

@@ -1,4 +1,4 @@
-import {ADD_MESSAGE} from '../constants/SimplePeerActions'
+import { ADD_MESSAGE } from '../constants/ActionTypes'
 
 const Messages = (state = [], action) => {
   switch (action && action.type) {

@@ -1,7 +1,5 @@
-import { setView, setConfig } from '../actions/App'
-import * as types from '../constants/ActionTypes'
+import { setView, setConfig } from '../actions/AppActions'
 import App from './App'
-import { getAction } from '../../test/utils/getAction'
 
 import configureMockStore from "redux-mock-store"
 import thunk from "redux-thunk"

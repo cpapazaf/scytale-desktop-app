@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {CHAT_VIEW} from '../constants/Views'
+import { CHAT_VIEW } from '../constants/ViewsConstants'
 
 const containerStyle = {
   position: 'fixed',

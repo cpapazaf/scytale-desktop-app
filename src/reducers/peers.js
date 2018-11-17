@@ -1,4 +1,4 @@
-import * as types from '../constants/SimplePeerActions'
+import * as types from '../constants/ActionTypes'
 
 const Peers = (state = {}, action) => {
   switch (action && action.type) {
