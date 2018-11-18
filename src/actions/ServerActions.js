@@ -55,13 +55,17 @@ const connect = (remoteServerUrl) => dispatch => {
       socket.on('connect', () => {
           dispatch({
             type: types.STATUS,
-            status: STATUS_ONLINE
+            payload: {
+              status: STATUS_ONLINE
+            }
           })
       })
       socket.on('disconnect', () => {
           dispatch({
             type: types.STATUS,
-            status: STATUS_OFFLINE
+            payload: {
+              status: STATUS_OFFLINE
+            }
           })
       })
   })

@@ -9,19 +9,19 @@ const App = (state = {
     switch (action && action.type) {
       case types.SET_CONFIG:
         return Object.assign({}, state, {
-          username: action.username,
-          chatRoomName: action.chatRoomName,
-          remoteServerUrl: action.remoteServerUrl,
-          ecdh: action.ecdh,
-          publicKey: action.publicKey
+          username: action.payload.username,
+          chatRoomName: action.payload.chatRoomName,
+          remoteServerUrl: action.payload.remoteServerUrl,
+          ecdh: action.payload.ecdh,
+          publicKey: action.payload.publicKey
         })
       case types.SET_VIEW:
         return Object.assign({}, state, {
-          currentView: action.view
+          currentView: action.payload.view
         })
       case types.STATUS:
         return Object.assign({}, state, {
-          status: action.status
+          status: action.payload.status
         })
       default:
           return state

@@ -6,11 +6,13 @@ export const setConfig = (username, chatRoomName, remoteServerUrl) => {
     const { ecdh, publicKey } = generatePublicKey()
     dispatch({
       type: types.SET_CONFIG,
-      username,
-      chatRoomName,
-      remoteServerUrl,
-      ecdh: ecdh,
-      publicKey: publicKey
+      payload: {
+        username,
+        chatRoomName,
+        remoteServerUrl,
+        ecdh,
+        publicKey
+      }
     })
   }
 
@@ -18,5 +20,7 @@ export const setConfig = (username, chatRoomName, remoteServerUrl) => {
 
 export const setView = (view) => ({
   type: types.SET_VIEW,
-  view
+  payload: {
+    view
+  }
 })

@@ -5,9 +5,9 @@ const Messages = (state = [], action) => {
     case ADD_MESSAGE:
       return state.concat([
         {
-          message: action.message,
-          author: action.author,
-          timestamp: action.timestamp
+          message: action.payload.message,
+          author: action.payload.author,
+          timestamp: action.payload.timestamp
         }
       ])
     default:

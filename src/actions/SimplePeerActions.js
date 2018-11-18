@@ -124,9 +124,11 @@ export const updatePeerInfo = (userId, username, publicKey, sharedSecret) => ({
 
 export const addMessage = (message, author) => ({
   type: types.ADD_MESSAGE,
-  timestamp: Date.now(),
-  message,
-  author
+  payload: {
+    timestamp: Date.now(),
+    message,
+    author
+  }
 })
 
 export const sendMessage = (message) => (dispatch, getState) => {
