@@ -12,6 +12,7 @@
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
+    "test:e2e": "jest --detectOpenHandles --forceExit -c e2e/jest-e2e.config.js",
     "lint": "eslint --quiet --cache --ignore-path .gitignore .",
     "lint-fix": "eslint --quiet --cache --fix --ignore-path .gitignore ."
   },
@@ -102,6 +103,7 @@
     "electron": "^3.0.4",
     "electron-builder": "^20.28.4",
     "electron-debug": "2.0.0",
+    "puppeteer": "^1.10.0",
     "react-scripts": "^2.0.5",
     "redux-mock-store": "^1.5.3",
     "wait-on": "^3.1.0"

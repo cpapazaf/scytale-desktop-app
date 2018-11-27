@@ -55,10 +55,12 @@ export default class MessagesList extends React.Component {
     this.scrollToBottom()
     return (
       <div>
-        <div style={messagesListStyle}
-        ref={(div) => {
-          this.messageList = div;
-        }}
+        <div
+          id='messageslist'
+          style={messagesListStyle}
+          ref={(div) => {
+            this.messageList = div;
+          }}
         >
           <ul>
             {

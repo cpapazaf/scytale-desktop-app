@@ -37,11 +37,15 @@ export default class ChatRoomMembers extends React.Component {
     const {peers, chatRoomName} = this.props
     return (
       <div style={wrapperStyle}>
-        <div style={ChatRoomNameStyle}>
-        #{chatRoomName}
+        <div
+          id='chatRoomName' 
+          style={ChatRoomNameStyle}>
+          #{chatRoomName}
         </div>
         <hr style={horizontalLineStyle} />
-        <div style={ChatRoomMembersStyle}>
+        <div
+          id='chatMembers' 
+          style={ChatRoomMembersStyle}>
           <ul>
             {Object.keys(peers).map(userId => (
               <li key={userId}>{peers[userId].username}</li>

@@ -39,7 +39,7 @@ export default class StatusLine extends React.Component {
             background: status === STATUS_ONLINE ? '#6BD761' : 'gray'
           }}
         />
-        <div style={TextStyle}>{username}</div>
+        <div id='username' style={TextStyle}>{username}</div>
       </div>
     )
   }
