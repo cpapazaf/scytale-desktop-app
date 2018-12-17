@@ -6,7 +6,13 @@
 
 ## Security
 
-Every message is encrypted using ECDH (prime256v1) with SHA256 (aes-256-cbc). It can only be decrypted by your private key. Keys are created on the fly and kept in mem (state)
+* Keys are generated using ECDH (prime256v1).
+* Encryption is performed with SHA256 (aes-256-cbc).
+* The shared secret is calculated like:
+  ```js
+  const sharedSecret = ecdh.computeSecret(remoteUser.publicKey, 'hex', 'hex').substring(0,32)
+  ```
+* A hash `sha256` of the original message is sent together with the encrypted message. 
 
 Check [safecurves](http://safecurves.cr.yp.to/)
 
