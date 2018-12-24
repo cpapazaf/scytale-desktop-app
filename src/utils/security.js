@@ -36,3 +36,7 @@ export const generatePublicKey = () => {
         publicKey: ecdh.getPublicKey('hex')
     }
 }
+
+export const generateSharedSecretFromPublicKey = (myEcdh, peerPublicKey) => {
+    return myEcdh.computeSecret(peerPublicKey, 'hex', 'hex').substring(0,32)
+}

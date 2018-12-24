@@ -3,7 +3,7 @@ import * as types from '../constants/ActionTypes'
 import * as SimplePeerConstants from '../constants/SimplePeerConstants'
 import { getPeer, getPeerUsername, getPeerSharedSecret, getPeerIds } from '../selectors/PeerSelectors'
 import { getUsername, getPublicKey, getEcdh } from '../selectors/AppSelectors'
-import { encrypt, decrypt, hash } from '../utils/security'
+import { encrypt, decrypt, hash, generateSharedSecretFromPublicKey } from '../utils/security'
 
 class SimplePeerHandler {
   constructor ({ socket, user, dispatch, getState }) {
@@ -41,7 +41,7 @@ class SimplePeerHandler {
     if (object.socketId) {
       const ecdh = getEcdh(state)
       // We received the internal handshake lets calculate the secret and keep only 32 leftmost chars
-      const sharedSecret = ecdh.computeSecret(object.publicKey, 'hex', 'hex').substring(0,32)
+      const sharedSecret = generateSharedSecretFromPublicKey(ecdh, object.publicKey)
       dispatch(updatePeerInfo(object.socketId, object.name, object.publicKey, sharedSecret))
     }
     if (object.message) {
