@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from '../constants/ActionTypes'
+import { ADD_MESSAGE, DELETE_MESSAGE } from '../constants/ActionTypes'
 
 const Messages = (state = [], action) => {
   switch (action && action.type) {
@@ -7,9 +7,12 @@ const Messages = (state = [], action) => {
         {
           message: action.payload.message,
           author: action.payload.author,
-          timestamp: action.payload.timestamp
+          timestamp: action.payload.timestamp,
+          mid: action.payload.mid
         }
       ])
+    case DELETE_MESSAGE:
+      return state.filter(msg => msg.mid !== action.payload.mid)
     default:
       return state
   }

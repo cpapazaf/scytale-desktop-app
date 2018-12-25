@@ -1,4 +1,4 @@
-import { addMessage } from '../actions/SimplePeerActions'
+import { addReceivedMessage } from '../actions/SimplePeerActions'
 import Messages from './Messages'
 
 describe('reducers/Messages', () => {
@@ -9,7 +9,7 @@ describe('reducers/Messages', () => {
             global.Date.now = dateNowStub
             
             let state = Messages()
-            state = Messages(state, addMessage('test', 'Bob'))
+            state = Messages(state, addReceivedMessage('test', 'Bob'))
             expect(state[0].author).toBe('Bob')
             expect(state[0].timestamp).toBe(1530518207007)
 
@@ -22,12 +22,12 @@ describe('reducers/Messages', () => {
             global.Date.now = dateNowStub    
 
             let state = Messages()
-            state = Messages(state, addMessage('test', 'Bob'))
+            state = Messages(state, addReceivedMessage('test', 'Bob'))
 
             dateNowStub = jest.fn(() => 1530518207009)
             global.Date.now = dateNowStub    
 
-            state = Messages(state, addMessage('test2', 'Cat'))
+            state = Messages(state, addReceivedMessage('test2', 'Cat'))
             expect(state[0].author).toBe('Bob')
             expect(state[0].timestamp).toBe(1530518207007)
             expect(state[1].author).toBe('Cat')

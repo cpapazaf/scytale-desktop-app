@@ -10,6 +10,7 @@ export const PEER_ADD = 'PEER_ADD'
 export const PEER_REMOVE = 'PEER_REMOVE'
 export const PEER_UPDATE = 'PEER_UPDATE'
 export const ADD_MESSAGE = 'ADD_MESSAGE'
+export const DELETE_MESSAGE = 'DELETE_MESSAGE'
 
 
 // Server
