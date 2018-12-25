@@ -1,4 +1,4 @@
-import { setView, setConfig } from './AppActions'
+import { setConfig } from './AppActions'
 import * as types from '../constants/ActionTypes'
 import { getAction } from '../../test/utils/getAction'
 import configureMockStore from "redux-mock-store"
@@ -11,7 +11,7 @@ describe('actions/App', () => {
         const uname = 'Bob'
         const roomname = 'bla'
         const serverUrl = 'http://bla'
-        const store = mockStore();
+        const store = mockStore()
         store.dispatch(setConfig(uname, roomname, serverUrl))
         const setConfigAction = await getAction(store, types.SET_CONFIG)
         expect(setConfigAction.type).toEqual(types.SET_CONFIG)
