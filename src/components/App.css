@@ -23,33 +23,6 @@ body {
   padding: 0;
 }
 
-#wrapper {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border: 0px;
-}
-
-#leftPanel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 180px;
-  overflow: auto;
-}
-
-#rightPanel {
-  background: '#FFFFFF';
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 180px;
-  right: 0px;
-}
-
 ::-webkit-scrollbar {
   display: none;
 }

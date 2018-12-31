@@ -5,8 +5,8 @@ import { setConfig, setView } from '../actions/AppActions'
 import * as ServerActions from '../actions/ServerActions'
 
 const mapDispatchToProps = dispatch => ({
-  setConfig: (username, chatRoomName, remoteServer) => {
-    dispatch(setConfig(username, chatRoomName, remoteServer))
+  setConfig: (username, chatRoomName, chatRoomPass, remoteServer) => {
+    dispatch(setConfig(username, chatRoomName, chatRoomPass, remoteServer))
   },
   setView: (view) => {
     dispatch(setView(view))

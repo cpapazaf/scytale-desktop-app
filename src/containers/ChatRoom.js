@@ -1,4 +1,12 @@
 import { connect } from 'react-redux'
 import ChatRoom from '../components/ChatRoom'
+import { setView } from '../actions/AppActions'
 
-export const ChatRoomView = connect(() => ({}), {})(ChatRoom)
+
+const mapDispatchToProps = dispatch => ({
+    setView: (view) => {
+      dispatch(setView(view))
+    }
+  })
+
+export const ChatRoomView = connect(() => ({}), mapDispatchToProps)(ChatRoom)

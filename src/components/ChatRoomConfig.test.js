@@ -22,13 +22,14 @@ describe('components/ChatRoomConfig', () => {
   
   let username = 'testUser'
   let chatroom = 'chatroomName'
+  let chatroomPass = 'chatroomPass'
   let remoteServer = 'aUrl'
 
   beforeEach(() => render())
 
   describe('Join Form', () => {
 
-    let usernameInput, chatroomInput, serverurlInput
+    let usernameInput, chatroomInput, chatroomPassInput, serverurlInput
     beforeEach(() => {
       setConfig.mockClear()
       setView.mockClear()
@@ -49,6 +50,12 @@ describe('components/ChatRoomConfig', () => {
         })
         expect(chatroomInput.value).toBe(chatroom)
 
+        chatroomPassInput = node.querySelector('input[name="chatroomPass"]')
+        TestUtils.Simulate.change(chatroomPassInput, {
+          target: { value: chatroomPass }
+        })
+        expect(chatroomPassInput.value).toBe(chatroomPass)
+
         serverurlInput = node.querySelector('input[name="serverurl"]')
         TestUtils.Simulate.change(serverurlInput, {
           target: { value: remoteServer }
@@ -56,13 +63,13 @@ describe('components/ChatRoomConfig', () => {
         expect(serverurlInput.value).toBe(remoteServer)
 
         TestUtils.Simulate.submit(node.querySelector('form'))
-        expect(setConfig.mock.calls).toEqual([[ username, chatroom, remoteServer ]])
+        expect(setConfig.mock.calls).toEqual([[ username, chatroom, chatroomPass, remoteServer ]])
         expect(initConnection.mock.calls.length).toBe(1)
       })
 
       it('respects the default serverUrl', () => {
         TestUtils.Simulate.submit(node.querySelector('form'))
-        expect(setConfig.mock.calls).toEqual([[ '', '', 'https://scytale-server.herokuapp.com' ]])
+        expect(setConfig.mock.calls).toEqual([[ '', '', '', 'https://scytale-server.herokuapp.com' ]])
       })
     })
   })

@@ -11,6 +11,7 @@ const App = (state = {
         return Object.assign({}, state, {
           username: action.payload.username,
           chatRoomName: action.payload.chatRoomName,
+          chatRoomPass: action.payload.chatRoomPass,
           remoteServerUrl: action.payload.remoteServerUrl,
           ecdh: action.payload.ecdh,
           publicKey: action.payload.publicKey
@@ -22,6 +23,14 @@ const App = (state = {
       case types.STATUS:
         return Object.assign({}, state, {
           status: action.payload.status
+        })
+      case types.SERVER_ERROR:
+        return Object.assign({}, state, {
+          serverError: action.payload.message
+        })
+      case types.SERVER_EXCEPTION:
+        return Object.assign({}, state, {
+          serverException: action.payload.message
         })
       default:
           return state

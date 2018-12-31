@@ -16,3 +16,5 @@ export const DELETE_MESSAGE = 'DELETE_MESSAGE'
 // Server
 export const STATUS = 'STATUS'
 export const INIT_CONNECTION = 'INIT_COONNECTION'
+export const SERVER_ERROR = 'SERVER_ERROR' // Socket.io Error from server
+export const SERVER_EXCEPTION = 'SERVER_EXCEPTION' // Custom Exception from server

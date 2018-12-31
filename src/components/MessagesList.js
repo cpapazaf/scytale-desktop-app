@@ -5,7 +5,7 @@ import MessageLine from './MessageLine'
 
 const messagesListStyle = {
   position: "absolute",
-  top: "0",
+  top: "41px",
   bottom: "60px",
   width: "100%",
   right: "0",

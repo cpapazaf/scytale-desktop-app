@@ -56,19 +56,20 @@ export default class ChatRoomConfig extends Component {
     this.state = {
       username: '',
       chatroom: '',
+      chatroomPass: '',
       serverUrl: process.env.NODE_ENV === 'development'? 'http://localhost:4000': "https://scytale-server.herokuapp.com"
     }
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    this.props.setConfig(this.state.username, this.state.chatroom, this.state.serverUrl || this.remoteServerInput.value)
+    this.props.setConfig(this.state.username, this.state.chatroom, this.state.chatroomPass, this.state.serverUrl || this.remoteServerInput.value)
     this.props.initConnection()
     this.props.setView(CHAT_VIEW)
   }
 
   render() {
-    const { username, chatroom,  serverUrl} = this.state
+    const { username, chatroom, chatroomPass, serverUrl} = this.state
     return (
       <div style={containerStyle}>
         <form style={formStyle} onSubmit={this.handleSubmit}>
@@ -101,6 +102,21 @@ export default class ChatRoomConfig extends Component {
                 })
               }}
               value={chatroom}
+            />
+          </div>
+          <label htmlFor="chatroomPass"><b>Chatroom Password</b></label>
+          <div>
+            <input
+              style={inputStyle}
+              name="chatroomPass"
+              label="Chatroom Password"
+              placeholder="Enter Chatroom Password"
+              onChange={ e => {
+                this.setState({
+                  chatroomPass: e.target.value
+                })
+              }}
+              value={chatroomPass}
             />
           </div>
           <label htmlFor="serverurl"><b>Remote Server</b></label>

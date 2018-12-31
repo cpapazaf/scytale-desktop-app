@@ -26,6 +26,30 @@ const connect = (remoteServerUrl) => dispatch => {
             }
           })
       })
+      socket.on('connect_error', (error) => {
+        dispatch({
+          type: types.SERVER_ERROR,
+          payload: {
+            message: 'CONNECT_ERROR: ' + (error && error.type)
+          }
+        })
+      })
+      socket.on('connect_timeout', () => {
+        dispatch({
+          type: types.SERVER_ERROR,
+          payload: {
+            message: 'CONNECT_TIMEOUT'
+          }
+        })
+      })
+      socket.on('error', (error) => {
+        dispatch({
+          type: types.SERVER_ERROR,
+          payload: {
+            message: error
+          }
+        })
+      })
   })
 }
 
@@ -40,6 +64,17 @@ const initConnection = () => {
                       socket
                   }))
               })
+    })
+  }
+}
+
+export const setException = (exceptionMessage) => {
+  return (dispatch) => {
+    return dispatch({
+      type: types.SERVER_EXCEPTION,
+      payload: {
+        message: exceptionMessage
+      }
     })
   }
 }

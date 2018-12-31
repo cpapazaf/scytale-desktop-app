@@ -10,13 +10,15 @@ describe('actions/App', () => {
     it('sets Config', async () => {
         const uname = 'Bob'
         const roomname = 'bla'
+        const roompass = 'bla'
         const serverUrl = 'http://bla'
         const store = mockStore()
-        store.dispatch(setConfig(uname, roomname, serverUrl))
+        store.dispatch(setConfig(uname, roomname, roompass, serverUrl))
         const setConfigAction = await getAction(store, types.SET_CONFIG)
         expect(setConfigAction.type).toEqual(types.SET_CONFIG)
         expect(setConfigAction.payload.username).toEqual(uname)
         expect(setConfigAction.payload.chatRoomName).toEqual(roomname)
+        expect(setConfigAction.payload.chatRoomPass).toEqual(roompass)
         expect(setConfigAction.payload.remoteServerUrl).toEqual(serverUrl)
     })
 })

@@ -12,7 +12,7 @@ const IsOnlineStyle = {
   width: '10px',
   height: '10px',
   borderRadius: '50%',
-  margin: '15px',
+  margin: '15px 15px 15px 4px',
   float: 'left'
 }
 
