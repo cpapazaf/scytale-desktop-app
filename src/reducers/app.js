@@ -17,6 +17,12 @@ const App = (state = {
           publicKey: action.payload.publicKey
         })
       case types.SET_VIEW:
+        if (action.payload.view === CHAT_CONFIG_VIEW) {
+          return Object.assign({}, {}, {
+            currentView: CHAT_CONFIG_VIEW,
+            status: STATUS_OFFLINE
+          })
+        }
         return Object.assign({}, state, {
           currentView: action.payload.view
         })
