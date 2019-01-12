@@ -9,6 +9,7 @@
     "electron": "electron .",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-dist": "build -c.extraMetadata.main=build/electron.js",
+    "electron-dist-win": "build -c.extraMetadata.main=build/electron.js --win --dir",
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
