@@ -1,6 +1,6 @@
 import * as types from '../constants/ActionTypes'
 import { CHAT_CONFIG_VIEW } from '../constants/ViewsConstants'
-import { STATUS_OFFLINE } from '../constants/ServerConstants'
+import { STATUS_OFFLINE, STATUS_ONLINE } from '../constants/ServerConstants'
 
 const App = (state = {
     currentView: CHAT_CONFIG_VIEW,
@@ -27,9 +27,15 @@ const App = (state = {
           currentView: action.payload.view
         })
       case types.STATUS:
-        return Object.assign({}, state, {
+        const new_state = Object.assign({}, state, {
           status: action.payload.status
         })
+
+        if (action.payload.status === STATUS_ONLINE) {
+          delete new_state.serverError
+        }
+
+        return new_state 
       case types.SERVER_ERROR:
         return Object.assign({}, state, {
           serverError: action.payload.message

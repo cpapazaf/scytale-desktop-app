@@ -10,8 +10,8 @@ describe('actions/SimplePeerActions', () => {
     it('addReceivedMessage', async () => {
         const store = mockStore()
         store.dispatch(addReceivedMessage('message', 'testAuthor'))
-        const addReceivedMessageAction = await getAction(store, types.ADD_MESSAGE)
-        expect(addReceivedMessageAction.type).toEqual(types.ADD_MESSAGE)
+        const addReceivedMessageAction = await getAction(store, types.MESSAGE_ADD)
+        expect(addReceivedMessageAction.type).toEqual(types.MESSAGE_ADD)
         expect(addReceivedMessageAction.payload.message).toEqual('message')
         expect(addReceivedMessageAction.payload.author).toEqual('testAuthor')
     })

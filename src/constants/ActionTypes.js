@@ -8,9 +8,11 @@ export const SET_VIEW = 'SET_VIEW'
 // Peer
 export const PEER_ADD = 'PEER_ADD'
 export const PEER_REMOVE = 'PEER_REMOVE'
+export const PEER_REMOVE_ALL = 'PEER_REMOVE_ALL'
 export const PEER_UPDATE = 'PEER_UPDATE'
-export const ADD_MESSAGE = 'ADD_MESSAGE'
-export const DELETE_MESSAGE = 'DELETE_MESSAGE'
+export const MESSAGE_ADD = 'MESSAGE_ADD'
+export const MESSAGE_DELETE = 'MESSAGE_DELETE'
+export const MESSAGE_DELETE_ALL = 'MESSAGE_DELETE_ALL'
 
 
 // Server

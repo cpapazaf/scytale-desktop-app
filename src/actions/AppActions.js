@@ -16,7 +16,6 @@ export const setConfig = (username, chatRoomName, chatRoomPass, remoteServerUrl)
       }
     })
   }
-
 }
 
 export const setView = (view) => ({

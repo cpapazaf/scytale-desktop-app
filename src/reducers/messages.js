@@ -1,8 +1,8 @@
-import { ADD_MESSAGE, DELETE_MESSAGE } from '../constants/ActionTypes'
+import { MESSAGE_ADD, MESSAGE_DELETE, MESSAGE_DELETE_ALL } from '../constants/ActionTypes'
 
 const Messages = (state = [], action) => {
   switch (action && action.type) {
-    case ADD_MESSAGE:
+    case MESSAGE_ADD:
       return state.concat([
         {
           message: action.payload.message,
@@ -11,8 +11,10 @@ const Messages = (state = [], action) => {
           mid: action.payload.mid
         }
       ])
-    case DELETE_MESSAGE:
+    case MESSAGE_DELETE:
       return state.filter(msg => msg.mid !== action.payload.mid)
+    case MESSAGE_DELETE_ALL:
+        return []
     default:
       return state
   }

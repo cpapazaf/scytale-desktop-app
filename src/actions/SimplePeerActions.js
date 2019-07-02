@@ -60,7 +60,7 @@ export const updatePeerInfo = (userId, username, publicKey, sharedSecret) => ({
 
 export const addReceivedMessage = (message, author)=> (dispatch, getState) => {
   const messageToDispatch = {
-    type: types.ADD_MESSAGE,
+    type: types.MESSAGE_ADD,
     payload: {
       timestamp: Date.now(),
       mid: uuidv4(),
@@ -69,7 +69,7 @@ export const addReceivedMessage = (message, author)=> (dispatch, getState) => {
     }
   }
   setTimeout(() => ( dispatch({
-    type: types.DELETE_MESSAGE,
+    type: types.MESSAGE_DELETE,
     payload: {
       mid: messageToDispatch.payload.mid
     }

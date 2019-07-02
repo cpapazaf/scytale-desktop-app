@@ -54,7 +54,7 @@ export default class MessageInput extends React.Component {
       <div>
         <textarea
           id='messageinput'
-          placeholder='Enter a message and press enter'
+          placeholder='Type your message and press enter'
           style={messageInputStyle}
           onChange={this.handleChange}
           onKeyPress={this.handleKeyPress}

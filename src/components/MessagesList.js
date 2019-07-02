@@ -26,7 +26,7 @@ export default class MessagesList extends React.Component {
 
   constructor(props) {
     super(props)
-    this.scrollToBottom = this.scrollToBottom.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this)
   }
 
   scrollToBottom = () => {
