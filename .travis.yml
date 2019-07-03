@@ -19,7 +19,6 @@ script:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then npm run build; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker run --volume $(pwd):/usr/app --workdir /usr/app cpapazaf/scytale_win_builder:1 npm run electron-dist;
-      docker run --volume $(pwd):/usr/app --workdir /usr/app cpapazaf/scytale_win_builder:1 npm run electron-dist-win;
     else
       npm run electron-dist;
     fi
